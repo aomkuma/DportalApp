@@ -1,0 +1,7 @@
+{
+  "name": "DportalApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

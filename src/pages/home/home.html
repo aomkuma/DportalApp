@@ -1,0 +1,135 @@
+<ion-header *ngIf="this.pageType != null"  >
+  <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <div style="overflow:auto;-webkit-overflow-scrolling:touch; height: 100%; margin-top: 20%; border: none;"  *ngIf="this.pageType != null">
+      
+      <iframe style="width:100%;height:100%;" [src]="pageType"></iframe>
+  </div>
+
+  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'PIN-SETTING'">
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <img src="assets/imgs/user.png" style="height:100%;">
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        กรุณาระบุ PIN 4 หลัก
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs  >
+      <ion-col col-2 offset-2>
+        <ion-input [(ngModel)]="Pin1" type="number" autofocus style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="1" (keyup)="moveFocus(b)"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <ion-input [(ngModel)]="Pin2" type="number" #b style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="2" (keyup)="moveFocus(c)"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <ion-input [(ngModel)]="Pin3" type="number" #c style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="3" (keyup)="moveFocus(d)"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <ion-input [(ngModel)]="Pin4" type="number" #d style="border-bottom: 1px solid #999; text-align: center;" max="9" (keyup)="pinSetting(LoginObj.UserID)"></ion-input>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'PIN-LOGIN'">
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <img src="assets/imgs/user.png" style="height:100%;">
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        กรุณาระบุ PIN 4 หลัก
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs  >
+      <ion-col col-2 offset-2>
+        <ion-input [(ngModel)]="Pin1" type="number" #a autofocus style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="1" (keyup)="moveFocus(b)"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <ion-input [(ngModel)]="Pin2" type="number" #b style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="2" (keyup)="moveFocus(c)"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <ion-input [(ngModel)]="Pin3" type="number" #c style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="3" (keyup)="moveFocus(d)"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <ion-input [(ngModel)]="Pin4" type="number" #d style="border-bottom: 1px solid #999; text-align: center;" max="9" (keyup)="loginWithPin(LoginObj.UserID, a)"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs *ngIf="errMsg != ''">
+      <ion-col style="text-align: center;">
+        {{errorMsg}}
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'LOGIN'">
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <img src="assets/imgs/user.png" style="height:100%;">
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col col-2 offset-1>
+       <img src="assets/imgs/user.png" style="height:30%; margin-top:10px;">
+      </ion-col>
+      <ion-col col-8>
+        <ion-input placeholder="Username" [(ngModel)]="User.Username" style="border-bottom: 1px solid #999;"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col col-2 offset-1>
+       <img src="assets/imgs/key.png" style="height:30%; margin-top:10px;">
+      </ion-col>
+      <ion-col col-8>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="User.Password" style="border-bottom: 1px solid #999;"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <img src="assets/imgs/login.png" style="height:30%; margin-top:10px;" (tap)="login(User)">
+        
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs *ngIf="errMsg != ''">
+      <ion-col style="text-align: center;">
+        {{errorMsg}}
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>
+<ion-footer style="height:15%; text-align: center; background-color: #FFF;" *ngIf="this.pageType != null">
+  <ion-row responsive-sm responsive-xs>
+    <ion-col>
+      <img src="assets/imgs/room-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + '/mobile/#/roomconference')">
+      <br>
+      จองห้องประชุม
+    </ion-col>
+    <ion-col>
+      <img src="assets/imgs/car-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + '/mobile/#/news')">
+      <br>
+      จองรถ
+    </ion-col>
+    <ion-col>
+      <img src="assets/imgs/repair-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + '/mobile/#/repair/')">
+      <br>
+      แจ้งซ่อม
+    </ion-col>
+    <ion-col>
+      <img src="assets/imgs/leave-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + 'mobile/#/roomconference')">
+      <br>
+      วันลา
+    </ion-col>
+  </ion-row>
+</ion-footer>
