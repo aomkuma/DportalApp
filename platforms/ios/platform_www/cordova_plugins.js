@@ -283,6 +283,14 @@ module.exports = [
     "clobbers": [
       "SQLitePlugin"
     ]
+  },
+  {
+    "id": "cordova-plugin-badge.Badge",
+    "file": "plugins/cordova-plugin-badge/www/badge.js",
+    "pluginId": "cordova-plugin-badge",
+    "clobbers": [
+      "cordova.plugins.notification.badge"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -299,7 +307,8 @@ module.exports.metadata =
   "cordova-plugin-splashscreen": "5.0.2",
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-whitelist": "1.3.3",
-  "cordova-sqlite-storage": "2.5.2"
+  "cordova-sqlite-storage": "2.5.2",
+  "cordova-plugin-badge": "0.8.8"
 };
 // BOTTOM OF METADATA
 });

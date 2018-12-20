@@ -1,0 +1,20 @@
+<div style="padding-top: 2%;">
+	<ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+    	<h4>สมุดโทรศัพท์ภายใน</h4>
+    	<br>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >
+      <ion-col style="text-align: left;">
+      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}
+      	<br>
+      	<ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}
+    	<br>
+    	<hr>
+      </ion-col>
+    </ion-row>
+    
+	
+</div>
+

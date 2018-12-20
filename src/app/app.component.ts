@@ -30,12 +30,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'ข่าวประชาสัมพันธ์', url: '/mobile/#/news' },
-      { title: 'ลิ้งค์ที่เกี่ยวข้อง', url: '/mobile/#/link' },
-      { title: 'สมุดโทรศัพท์ภายใน', url: '/mobile/#/telephonebook_internal' },
-      { title: 'สมุดโทรศัพท์ภายนอก', url: '/mobile/#/telephonebook_external' },
-      { title: 'MIS', url: '/MIS' },
-      { title: 'ข้อมูลส่วนตัว', url: '/mobile/#/user_profile' }
+      { title: 'ข่าวประชาสัมพันธ์', url: 'news' },
+      { title: 'ลิ้งค์ที่เกี่ยวข้อง', url: 'link' },
+      { title: 'สมุดโทรศัพท์ภายใน', url: 'telephonebook_internal' },
+      { title: 'สมุดโทรศัพท์ภายนอก', url: 'telephonebook_external' },
+      { title: 'MIS', url: 'MIS' },
+      { title: 'ข้อมูลส่วนตัว', url: 'user_profile' }
     ];
 
     storage.get('LoginObj').then((val) => {
@@ -57,12 +57,17 @@ export class MyApp {
   openPage(pageType) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(HomePage, {pageType: pageType});
+    if(pageType == 'MIS'){
+      this.openWeb(this.webServerHost + '/' + pageType);
+    }else{
+      this.nav.setRoot(HomePage, {pageType: pageType, 'loggedin':true});  
+    }
+    
   }
 
   openWeb(url)
    {
-     var openurl = url + '/' + btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));// + (JSON.stringify(this.LoginObj));
+     var openurl = url
      console.log(openurl);
      // url = url + '/'+ (JSON.stringify(this.LoginObj));
      const browser = this.iab.create(openurl,'_blank',{location:'yes', 'clearcache' :'yes'});

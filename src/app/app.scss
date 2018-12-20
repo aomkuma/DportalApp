@@ -17,3 +17,22 @@
 .toolbar-background {
   background-color: #01a3a4;
 }
+
+.my-container {
+    background-image:  url("../assets/imgs/side-bg.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    padding:none;
+    margin:none;
+    color:#FFF;
+    margin-left:0px;
+    background-color:#000;
+    background-position: left -20px bottom -30px;
+}
+.transp .item-content {
+    background-color: transparent !important;
+    color: #fff;
+}
+

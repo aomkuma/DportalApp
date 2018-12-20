@@ -36,6 +36,9 @@
     },
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
     }
   },
   "dependent_plugins": {

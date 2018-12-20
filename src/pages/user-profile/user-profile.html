@@ -1,0 +1,42 @@
+<div style="padding-top: 2%;">
+	<ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+    	<h4>แก้ไขข้อมูล</h4>
+    	<br>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-item>
+	    <ion-label color="primary">เบอร์โต๊ะ</ion-label>
+	    <ion-input [(ngModel)]="Data.InternalContact"></ion-input>
+	  </ion-item>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-item>
+	    <ion-label color="primary">เบอร์โทรศัพท์</ion-label>
+	    <ion-input [(ngModel)]="Data.Tel"></ion-input>
+	  </ion-item>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-item>
+	    <ion-label color="primary">แฟกซ์</ion-label>
+	    <ion-input [(ngModel)]="Data.Fax"></ion-input>
+	  </ion-item>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-item>
+	    <ion-label color="primary">มือถือ</ion-label>
+	    <ion-input [(ngModel)]="Data.Mobile"></ion-input>
+	  </ion-item>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+    	<ion-col style="text-align: center;">
+	    	<br>
+	    	<br>
+		    <button ion-button round (tap)="saveData(Data)">บันทึก</button>
+		</ion-col>
+    </ion-row>
+    
+	
+</div>
+

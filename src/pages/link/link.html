@@ -1,0 +1,22 @@
+<div style="padding-top: 2%;">
+	<ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+    	<h4>ลิ้งค์ที่เกี่ยวข้อง</h4>
+    	<br>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs *ngFor="let data of LinkList" >
+      <ion-col style="text-align: center;">
+      	<a (tap)="openWeb(data.LinkUrl)">
+	      	<img src="{{webServerHost + '/' + data.LinkIcon}}" alt="ไม่มีรูป" style="height: 80px; width: auto;">
+	    	<div [innerHtml]="data.LinkTopic"></div>
+	    </a>
+    	<br>
+    	<hr>
+      </ion-col>
+    </ion-row>
+    
+	
+</div>
+
+

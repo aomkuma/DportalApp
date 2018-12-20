@@ -1,19 +1,83 @@
 <ion-header *ngIf="this.pageType != null"  >
   <ion-navbar >
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu" color="light"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+
+    <ion-title>
+      <div style="display: inline-block;">
+        <input placeholder="ค้นหา.." style="width: 80%; border: 1px solid #ccc;float: left;" [(ngModel)]="keyword">
+        <button style="float: left; background-color: #FFF; height: 33px; border-radius: 5px;" (tap)="searchNews(keyword)" [disabled]="keyword == ''">
+          <ion-icon name="md-search" color="primary"></ion-icon>
+        </button>
+      </div>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="showNotify()" style="color:red; font-weight: bolder;">
+        <ion-icon name="md-notifications"  color="light" ></ion-icon> {{UnseenNotify}}
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  
+  <!--
   <div style="overflow:auto;-webkit-overflow-scrolling:touch; height: 100%; margin-top: 20%; border: none;"  *ngIf="this.pageType != null">
       
       <iframe style="width:100%;height:100%;" [src]="pageType"></iframe>
   </div>
+  -->
+  <div *ngIf="this.pageType != null" style=" height: 100%;">
+    
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <page-news *ngIf="this.pageType == 'news'"></page-news>
+        
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <page-link *ngIf="this.pageType == 'link'"></page-link>
+        
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <page-in-phone-book *ngIf="this.pageType == 'telephonebook_internal'"></page-in-phone-book>
+        
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <page-ex-phone-book *ngIf="this.pageType == 'telephonebook_external'"></page-ex-phone-book>
+        
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <page-user-profile *ngIf="this.pageType == 'user_profile'"></page-user-profile>
+        
+      </ion-col>
+    </ion-row>
 
+    <ion-row responsive-sm responsive-xs *ngIf="this.pageType == 'search'" style="margin-top: 15%;">
+      <ion-col style="text-align: center;">
+        <ion-row responsive-sm responsive-xs>
+          <ion-col style="text-align: left;">
+            <u><h4>ผลลัพธ์การค้นหา</h4></u>
+          </ion-col>
+        </ion-row>
+        <span *ngIf="errorMsg != ''"></span>
+        <ion-row responsive-sm responsive-xs *ngFor="let data of SearchList">
+          <ion-col style="text-align: left;">
+            <div [innerHtml]="data.NewsTitle" style="color: #FF5C5C;"></div>
+            <div [innerHtml]="subStringNews(data.NewsContent)" style=""></div>
+            <hr>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
   <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'PIN-SETTING'">
     <ion-row responsive-sm responsive-xs>
       <ion-col style="text-align: center;">
@@ -108,26 +172,37 @@
     </ion-row>
   </div>
 
+  <ion-content *ngIf="ShowNotify" style="position: absolute; top:11%; left:10%;right: 0px; width: 90%; height: 70%; background-color: #FFF; border:1px solid #999; border-radius: 10px;">
+     <ion-row responsive-sm responsive-xs *ngFor="let data of NotificationList" class="notify" [ngClass]="{'unseen-notify':data.NotificationStatus == 'Unseen'}">
+      <ion-col style="text-align: left;">
+          <a (tap)="openWeb(data.NotificationUrl)">{{data.NotificationText}}</a>
+          <br>
+          <span style="color:#999;">{{convertDateToFullThaiDateTime(data.PushDateTime)}} น.</span>
+          <hr>
+      </ion-col>
+    </ion-row>
+  </ion-content>
+
 </ion-content>
 <ion-footer style="height:15%; text-align: center; background-color: #FFF;" *ngIf="this.pageType != null">
   <ion-row responsive-sm responsive-xs>
     <ion-col>
-      <img src="assets/imgs/room-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + '/mobile/#/roomconference')">
+      <img src="assets/imgs/room-icon.png" style="height:60%;" (tap)="openWeb('/#/roomconference')">
       <br>
       จองห้องประชุม
     </ion-col>
     <ion-col>
-      <img src="assets/imgs/car-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + '/mobile/#/news')">
+      <img src="assets/imgs/car-icon.png" style="height:60%;" (tap)="goUnderContruction()"><!--openWeb('/#/carreservation')-->
       <br>
       จองรถ
     </ion-col>
     <ion-col>
-      <img src="assets/imgs/repair-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + '/mobile/#/repair/')">
+      <img src="assets/imgs/repair-icon.png" style="height:60%;" (tap)="openWeb('/#/repair/')">
       <br>
       แจ้งซ่อม
     </ion-col>
     <ion-col>
-      <img src="assets/imgs/leave-icon.png" style="height:60%;" (tap)="openWeb(webServerHost + 'mobile/#/roomconference')">
+      <img src="assets/imgs/leave-icon.png" style="height:60%;" (tap)="openWebExternal('https://LOMS.dpo.go.th')">
       <br>
       วันลา
     </ion-col>

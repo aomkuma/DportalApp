@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		019CEABF735448C689C54B46 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FAF6778B0481F98CDEC44 /* Security.framework */; };
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
@@ -59,6 +58,7 @@
 		F8C7CCC3518F49F7932115FE /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E4CD28E75904C98A46DB474 /* GCDWebServerFileRequest.m */; };
 		FDF4FC8B767F42FBA35425F7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 50904FE3E1A34E5AA66324FC /* libz.tbd */; };
 		FF7BAD08CF254BA586D3C11A /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB8E0492F744CE8A4843FEF /* CDVInAppBrowser.m */; };
+		E7AB68C2744C4331AA15F7A1 /* APPBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDEA9B8C4C740838317127F /* APPBadge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +194,8 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Dportal/config.xml; sourceTree = "<group>"; };
 		F8C55CBFECB14FD5BA8AF0A7 /* CDVWKWebViewUIDelegate.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWKWebViewUIDelegate.m; path = "cordova-plugin-ionic-webview/CDVWKWebViewUIDelegate.m"; sourceTree = "<group>"; };
 		FDB8E0492F744CE8A4843FEF /* CDVInAppBrowser.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; };
+		3CDEA9B8C4C740838317127F /* APPBadge.m */ = {isa = PBXFileReference; name = "APPBadge.m"; path = "cordova-plugin-badge/APPBadge.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		8C675C393E5049CF8CE750D3 /* APPBadge.h */ = {isa = PBXFileReference; name = "APPBadge.h"; path = "cordova-plugin-badge/APPBadge.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +393,8 @@
 				423E6A5993A04980B03A9563 /* SQLitePlugin.h */,
 				210855422293478DBA066F8C /* PSPDFThreadSafeMutableDictionary.h */,
 				2B20ECF535254DB7B3E7BAE2 /* sqlite3.h */,
+				3CDEA9B8C4C740838317127F /* APPBadge.m */,
+				8C675C393E5049CF8CE750D3 /* APPBadge.h */,
 			);
 			name = Plugins;
 			path = Dportal/Plugins;
@@ -559,6 +563,7 @@
 				EE7397A84B86449C8077C2E5 /* SQLitePlugin.m in Sources */,
 				72225E98C8474006937A15DE /* PSPDFThreadSafeMutableDictionary.m in Sources */,
 				C690719806DD402EB4DB706D /* sqlite3.c in Sources */,
+				E7AB68C2744C4331AA15F7A1 /* APPBadge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +603,27 @@
 				PRODUCT_NAME = Dportal;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+				);
 			};
 			name = Debug;
 		};
@@ -624,6 +650,27 @@
 				PRODUCT_NAME = Dportal;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+					"\"Dportal/Plugins/cordova-plugin-firebase\"",
+				);
 			};
 			name = Release;
 		};

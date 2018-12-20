@@ -1,0 +1,27 @@
+<!--
+  Generated template for the NewsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<div style="padding-top: 2%;">
+	<ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+    	<h4>ข่าวประชาสัมพันธ์</h4>
+    	<br>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs *ngFor="let data of NewsList" >
+      <ion-col style="text-align: center;">
+      	<img src="{{webServerHost + '/' + data.NewsPicture}}">
+    	<div [innerHtml]="data.NewsTitle"></div>
+      <span style="text-align: right; color:#999;">{{convertDateToFullThaiDateIgnoreTime(data.NewsDateTime)}}</span>
+    	<br>
+    	<hr>
+      </ion-col>
+      
+    </ion-row>
+    
+	
+</div>

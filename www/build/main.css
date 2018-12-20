@@ -25678,6 +25678,31 @@ ion-navbar.toolbar {
   background-color: #01a3a4;
 }
 
+.my-container {
+  background-image: url("../assets/imgs/side-bg.png");
+  background-size: cover;
+  height: 100%;
+  padding: none;
+  margin: none;
+  color: #FFF;
+  margin-left: 0px;
+  background-color: #000;
+  background-position: left -20px bottom -30px;
+}
+
+.transp .item-content {
+  background-color: transparent !important;
+  color: #fff;
+}
+
 page-home .toolbar-background {
   background-image: url("assets/imgs/bg_page_2.png");
+}
+
+page-home .notify {
+  padding: 10px;
+}
+
+page-home .unseen-notify {
+  background-color: #E2F7FF;
 }

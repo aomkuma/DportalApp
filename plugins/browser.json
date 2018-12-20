@@ -36,6 +36,9 @@
     },
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "io.ionic.dportal"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "io.ionic.dportal"
     }
   },
   "dependent_plugins": {

@@ -5,6 +5,7 @@ import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Badge } from '@ionic-native/badge';
 
 @Component({
   selector: 'page-home',
@@ -23,32 +24,45 @@ export class HomePage {
 
 	User : any = {'Username' : '', 'Password' : ''};
 	LoginObj : any = {};
-
+  ShowNotify = false;
+  SearchList : any = [];
+  NotificationList : any = [];
+  UnseenNotify : any = 0;
+  keyword : string = '';
   constructor(public navCtrl: NavController
           , public navParams: NavParams 
           , public http:HTTP
           , private storage: Storage
           , private iab: InAppBrowser
-          ,private sanitizer:DomSanitizer) {
+          , private sanitizer:DomSanitizer
+          , private badge: Badge) {
     // this.storage.remove('LoginObj');
   	this.pageType = this.navParams.get("pageType");
     console.log('PAGE TYPE = ' + this.pageType);
-    
-    console.log(this.pageType);
+    // this.badge.set(10);
+    // this.badge.increase(1);
+    // console.log(this.pageType);
     storage.get('LoginObj').then((val) => {
       console.log('Your age is ', val);
       if(val != null && val != ''){
         this.LoginObj = JSON.parse(val);
         console.log(this.LoginObj.UserID);
         this.LoginPage = 'PIN-LOGIN';
+
+        this.getNotifications();
+        setInterval(function(){
+          this.getNotifications();  
+        }, 360000);
         
         if(this.pageType != undefined && this.pageType != null){
-          var encode = (JSON.stringify(this.LoginObj));
-          this.pageType = this.webServerHost + '/mobile/#/' + this.pageType;// + '/' + encode;
-          this.pageType = this.sanitizer.bypassSecurityTrustResourceUrl(this.pageType);
-          console.log(this.pageType);
+          // var encode = (JSON.stringify(this.LoginObj));
+          // this.pageType = this.webServerHost + '/mobile/#/' + this.pageType;// + '/' + encode;
+          // this.pageType = this.sanitizer.bypassSecurityTrustResourceUrl(this.pageType);
+          // console.log(this.pageType);
           // alert(this.pageType);
         }
+
+        
       }
     });
   }
@@ -71,6 +85,10 @@ export class HomePage {
           }else{
             this.storage.set('LoginObj', JSON.stringify(this.LoginObj));
             this.setPageType('news');
+            this.getNotifications();
+            setInterval(function(){
+              this.getNotifications();  
+            }, 360000);
           }
           // this.LoginPage = 'PIN-SETTING';
           this.errorMsg = '';
@@ -104,6 +122,11 @@ export class HomePage {
       if(res.data.STATUS == 'OK'){
         this.LoginObj = res.data.DATA.UserData;
         this.setPageType('news');
+        this.getNotifications();
+        setInterval(function(){
+          this.getNotifications();  
+        }, 360000);
+
         this.errorMsg = '';
       }else{
         this.errorMsg = res.data.DATA;
@@ -133,6 +156,11 @@ export class HomePage {
       if(res.data.STATUS == 'OK'){
         this.LoginObj = res.data.DATA.UserData;
         this.setPageType('news');
+        this.getNotifications();
+        setInterval(function(){
+          this.getNotifications();  
+        }, 360000);
+        
         this.errorMsg = '';
       }else{
         this.errorMsg = res.data.DATA;
@@ -149,17 +177,17 @@ export class HomePage {
 
   setPageType(page){
     // console.log((JSON.stringify(this.LoginObj)));
-    var encode = btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));
-    this.pageType = this.webServerHost + '/mobile/#/' + page + '/' + encode;
-    console.log(this.pageType);
-    this.pageType = this.sanitizer.bypassSecurityTrustResourceUrl(this.pageType);
-    
+    // var encode = btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));
+    // this.pageType = this.webServerHost + '/mobile/#/' + page + '/' + encode;
+    // console.log(this.pageType);
+    // this.pageType = this.sanitizer.bypassSecurityTrustResourceUrl(this.pageType);
+    this.pageType = page;
     // alert(this.pageType);
   }
 
   openWeb(url)
    {
-     var openurl = url + '/' + btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));// + (JSON.stringify(this.LoginObj));
+     var openurl = this.webServerHost + '/mobile/' + url + '//' + btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));// + (JSON.stringify(this.LoginObj));
      console.log(openurl);
      // url = url + '/'+ (JSON.stringify(this.LoginObj));
      const browser = this.iab.create(openurl,'_blank',{location:'yes', 'clearcache' :'yes'});
@@ -167,5 +195,110 @@ export class HomePage {
           console.log(loadError);
       });
    }
+
+   openWebExternal(url){
+     
+     console.log(url);
+     // url = url + '/'+ (JSON.stringify(this.LoginObj));
+     const browser = this.iab.create(url,'_blank',{location:'yes', 'clearcache' :'yes'});
+      browser.on('loaderror').subscribe(loadError => {
+          console.log(loadError);
+      });
+   }
+
+   showNotify(){
+     if(!this.ShowNotify){
+       this.ShowNotify = true;
+     }else{
+       this.ShowNotify = false;  
+     }
+     
+   }
+
+   searchNews(keyword){
+     console.log('search : ' + encodeURIComponent(keyword));
+     this.http.get( this.webServerHost + '/dpo/public/searchNews/' + encodeURIComponent(keyword), {}, {})
+      .then(data => {
+        var res = JSON.parse(data.data);
+        console.log(JSON.stringify(res));
+        if(res.data.STATUS == 'OK'){
+          this.SearchList = res.data.DATA.NewsList;
+          this.setPageType('search');
+          this.errorMsg = '';
+        }else{
+          this.errorMsg = 'ไม่พบผลลัพธ์การค้นหา';
+        }
+      })
+      .catch(error => {
+
+        console.log(error.status);
+        console.log(error.error); // error message as string
+        console.log(error.headers);
+
+      });
+   }
+
+   getNotifications(){
+     var regionID = this.LoginObj.RegionID;
+     var userID = this.LoginObj.UserID;
+     var groupID = this.LoginObj.GroupID;
+     this.http.get( this.webServerHost + '/dpo/public/getNotificationList/'+regionID+'/'+groupID+'/'+userID+'/0', {}, {})
+    .then(data => {
+      var res = JSON.parse(data.data);
+      console.log(res);
+      if(res.data.STATUS == 'OK'){
+        this.NotificationList = res.data.DATA.NotificationList;
+        this.UnseenNotify = res.data.DATA.totalNewNotifications;
+        this.badge.set(this.UnseenNotify);
+        // this.setPageType('search');
+        console.log(JSON.stringify(this.NotificationList));
+        this.errorMsg = '';
+      }else{
+        this.errorMsg = 'ไม่พบการแจ้งเตือน';
+      }
+    })
+    .catch(error => {
+
+      console.log(error.status);
+      console.log(error.error); // error message as string
+      console.log(error.headers);
+
+    });
+   }
+
+   goUnderContruction(){
+     alert('Car Reservation Menu Is Unavailable At This Time ! ');
+   }
+
+   subStringNews(text){
+     return text.substring(0,150);
+   }
+
+   convertDateToFullThaiDateTime(date){
+    if(date != null && date != ''){
+          var dateTxt = '';
+          var monthTxt = '';
+          var dateTimeArr = date.split(' ');
+          var dateArr = dateTimeArr[0].split('-');
+          
+          switch(parseInt(dateArr[1])){
+              case 1 : monthTxt = 'มกราคม';break;
+              case 2 : monthTxt = 'กุมภาพันธ์';break;
+              case 3 : monthTxt = 'มีนาคม';break;
+              case 4 : monthTxt = 'เมษายน';break;
+              case 5 : monthTxt = 'พฤษภาคม';break;
+              case 6 : monthTxt = 'มิถุนายน';break;
+              case 7 : monthTxt = 'กรกฎาคม';break;
+              case 8 : monthTxt = 'สิงหาคม';break;
+              case 9 : monthTxt = 'กันยายน';break;
+              case 10 : monthTxt = 'ตุลาคม';break;
+              case 11 : monthTxt = 'พฤศจิกายน';break;
+              case 12 : monthTxt = 'ธันวาคม';break;
+          }
+          return dateArr[2] + ' ' + monthTxt + ' ' + (parseInt(dateArr[0]) + 543) + ' ' + dateTimeArr[1];
+      }else{
+        return '';
+      }
+    }
 
 }
