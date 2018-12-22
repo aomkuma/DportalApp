@@ -25675,6 +25675,7 @@ ion-navbar.toolbar {
 }
 
 .toolbar-background {
+  background-image: url("../../../assets/imgs/bg_page_2.png");
   background-color: #01a3a4;
 }
 
@@ -25696,7 +25697,8 @@ ion-navbar.toolbar {
 }
 
 page-home .toolbar-background {
-  background-image: url("assets/imgs/bg_page_2.png");
+  background-image: url("../../../assets/imgs/bg_page_2.png");
+  background-color: #01a3a4;
 }
 
 page-home .notify {

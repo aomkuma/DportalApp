@@ -1,3 +1,7 @@
+<ion-header *ngIf="this.pageType == null"  style="background-color: #FFF;">
+  <ion-navbar >
+  </ion-navbar>
+</ion-header>
 <ion-header *ngIf="this.pageType != null"  >
   <ion-navbar >
     <button ion-button menuToggle>
@@ -130,6 +134,12 @@
         <ion-input [(ngModel)]="Pin4" type="number" #d style="border-bottom: 1px solid #999; text-align: center;" max="9" (keyup)="loginWithPin(LoginObj.UserID, a)"></ion-input>
       </ion-col>
     </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <br><br><br>
+        <a (tap)="switchLogin('LOGIN')">ลอกอินด้วย Username และ Password</a>
+      </ion-col>
+    </ion-row>
     <ion-row responsive-sm responsive-xs *ngIf="errMsg != ''">
       <ion-col style="text-align: center;">
         {{errorMsg}}
@@ -165,6 +175,11 @@
         
       </ion-col>
     </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <a (tap)="switchLogin('PIN-LOGIN')">ลอกอินด้วย Pin</a>
+      </ion-col>
+    </ion-row>
     <ion-row responsive-sm responsive-xs *ngIf="errMsg != ''">
       <ion-col style="text-align: center;">
         {{errorMsg}}
@@ -172,8 +187,8 @@
     </ion-row>
   </div>
 
-  <ion-content *ngIf="ShowNotify" style="position: absolute; top:11%; left:10%;right: 0px; width: 90%; height: 70%; background-color: #FFF; border:1px solid #999; border-radius: 10px;">
-     <ion-row responsive-sm responsive-xs *ngFor="let data of NotificationList" class="notify" [ngClass]="{'unseen-notify':data.NotificationStatus == 'Unseen'}">
+  <ion-content *ngIf="ShowNotify" style="position: absolute; left:10%;right: 0px; width: 90%; height: 550px; background-color: #FFF; border:1px solid #999; border-radius: 10px; z-index: 9999; padding: 10px;">
+     <ion-row responsive-sm responsive-xs *ngFor="let data of NotificationList" class="notify" [ngClass]="{'unseen-notify':data.NotificationStatus == 'Unseen'}" pos>
       <ion-col style="text-align: left;">
           <a (tap)="openWeb(data.NotificationUrl)">{{data.NotificationText}}</a>
           <br>
@@ -184,7 +199,7 @@
   </ion-content>
 
 </ion-content>
-<ion-footer style="height:15%; text-align: center; background-color: #FFF;" *ngIf="this.pageType != null">
+<ion-footer style="height:100px; text-align: center; background-color: #FFF;" *ngIf="this.pageType != null">
   <ion-row responsive-sm responsive-xs>
     <ion-col>
       <img src="assets/imgs/room-icon.png" style="height:60%;" (tap)="openWeb('/#/roomconference')">

@@ -23,7 +23,7 @@ export class HomePage {
   LoginPage : string = 'LOGIN';
 	webServerHost : string = 'https://dportal.dpo.go.th';//'http://127.0.0.1/dportal'
 
-	User : any = {'Username' : 'test@dpo.go.th', 'Password' : 'P@ssw0rd'};
+	User : any = {'Username' : '', 'Password' : ''};
 	LoginObj : any = {};
   ShowNotify = false;
   SearchList : any = [];
@@ -152,6 +152,10 @@ export class HomePage {
       console.log(error.headers);
 
     });
+  }
+
+  switchLogin(type){
+    this.LoginPage = type;
   }
 
   pinSetting(userID){
