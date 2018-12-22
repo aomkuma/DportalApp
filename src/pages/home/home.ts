@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { NavController , NavParams} from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
@@ -22,7 +23,7 @@ export class HomePage {
   LoginPage : string = 'LOGIN';
 	webServerHost : string = 'https://dportal.dpo.go.th';//'http://127.0.0.1/dportal'
 
-	User : any = {'Username' : '', 'Password' : ''};
+	User : any = {'Username' : 'test@dpo.go.th', 'Password' : 'P@ssw0rd'};
 	LoginObj : any = {};
   ShowNotify = false;
   SearchList : any = [];
@@ -35,8 +36,13 @@ export class HomePage {
           , private storage: Storage
           , private iab: InAppBrowser
           , private sanitizer:DomSanitizer
-          , private badge: Badge) {
+          , private badge: Badge
+          , private statusBar: StatusBar) {
     // this.storage.remove('LoginObj');
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.show();
+    this.statusBar.backgroundColorByHexString('#01a3a4');
+
   	this.pageType = this.navParams.get("pageType");
     console.log('PAGE TYPE = ' + this.pageType);
     // this.badge.set(10);
@@ -74,8 +80,9 @@ export class HomePage {
 
   login(User){
     if(User.Username != '' && User.Password != ''){
-    	// console.log(this.webServerHost + '/dpo/public/login/');
-    	this.http.post( this.webServerHost + '/dpo/public/login/', {'obj_login':User}, {})
+    	console.log(this.webServerHost + '/dpo/public/login/');
+      this.http.setDataSerializer('json');
+    	this.http.post( this.webServerHost + '/dpo/public/login/', {'obj_login':User}, {"Content-Type": "application/json"})
       .then(data => {
         var res = JSON.parse(data.data);
         if(res.data.STATUS == 'OK'){
@@ -115,7 +122,8 @@ export class HomePage {
     var pin =  this.Pin1 +''+ this.Pin2 +''+ this.Pin3 +''+ this.Pin4;
     var params = {UserID : this.LoginObj.UserID, PinID : pin};
     // console.log(this.webServerHost + '/dpo/public/login/');
-    this.http.post( this.webServerHost + '/dpo/public/login/pin/', {'obj_login':params}, {})
+    this.http.setDataSerializer('json');
+    this.http.post( this.webServerHost + '/dpo/public/login/pin/', {'obj_login':params}, {"Content-Type": "application/json"})
     .then(data => {
       console.log(data.data);
       var res = JSON.parse(data.data);
@@ -150,7 +158,8 @@ export class HomePage {
     console.log('Pin setting..');
     var pin =  this.Pin1 +''+ this.Pin2 +''+ this.Pin3 +''+ this.Pin4;
     var params = {UserID : userID, PinID : pin};
-    this.http.post( this.webServerHost + '/dpo/public/login/pin/setting/', {'obj_setting':params}, {})
+    this.http.setDataSerializer('json');
+    this.http.post( this.webServerHost + '/dpo/public/login/pin/setting/', {'obj_setting':params}, {"Content-Type": "application/json"})
     .then(data => {
       var res = JSON.parse(data.data);
       if(res.data.STATUS == 'OK'){

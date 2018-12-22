@@ -1,6 +1,6 @@
 webpackJsonp([7],{
 
-/***/ 112:
+/***/ 113:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,40 +13,40 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 112;
+webpackEmptyAsyncContext.id = 113;
 
 /***/ }),
 
-/***/ 153:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/car/car.module": [
-		282,
+		285,
 		6
 	],
 	"../pages/ex-phone-book/ex-phone-book.module": [
-		283,
+		282,
 		5
 	],
 	"../pages/in-phone-book/in-phone-book.module": [
-		284,
+		283,
 		4
 	],
 	"../pages/link/link.module": [
-		285,
+		284,
 		3
 	],
 	"../pages/news/news.module": [
-		286,
+		287,
 		2
 	],
 	"../pages/repair/repair.module": [
-		287,
+		288,
 		1
 	],
 	"../pages/user-profile/user-profile.module": [
-		288,
+		286,
 		0
 	]
 };
@@ -61,7 +61,7 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 153;
+webpackAsyncContext.id = 154;
 module.exports = webpackAsyncContext;
 
 /***/ }),
@@ -73,11 +73,12 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_in_app_browser__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_badge__ = __webpack_require__(198);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -94,8 +95,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HomePage = /** @class */ (function () {
-    function HomePage(navCtrl, navParams, http, storage, iab, sanitizer, badge) {
+    function HomePage(navCtrl, navParams, http, storage, iab, sanitizer, badge, statusBar) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -104,10 +106,11 @@ var HomePage = /** @class */ (function () {
         this.iab = iab;
         this.sanitizer = sanitizer;
         this.badge = badge;
+        this.statusBar = statusBar;
         this.pageType = null;
         this.LoginPage = 'LOGIN';
         this.webServerHost = 'https://dportal.dpo.go.th'; //'http://127.0.0.1/dportal'
-        this.User = { 'Username': '', 'Password': '' };
+        this.User = { 'Username': 'test@dpo.go.th', 'Password': 'P@ssw0rd' };
         this.LoginObj = {};
         this.ShowNotify = false;
         this.SearchList = [];
@@ -115,6 +118,9 @@ var HomePage = /** @class */ (function () {
         this.UnseenNotify = 0;
         this.keyword = '';
         // this.storage.remove('LoginObj');
+        this.statusBar.overlaysWebView(true);
+        this.statusBar.show();
+        this.statusBar.backgroundColorByHexString('#01a3a4');
         this.pageType = this.navParams.get("pageType");
         console.log('PAGE TYPE = ' + this.pageType);
         // this.badge.set(10);
@@ -146,8 +152,9 @@ var HomePage = /** @class */ (function () {
     HomePage.prototype.login = function (User) {
         var _this = this;
         if (User.Username != '' && User.Password != '') {
-            // console.log(this.webServerHost + '/dpo/public/login/');
-            this.http.post(this.webServerHost + '/dpo/public/login/', { 'obj_login': User }, {})
+            console.log(this.webServerHost + '/dpo/public/login/');
+            this.http.setDataSerializer('json');
+            this.http.post(this.webServerHost + '/dpo/public/login/', { 'obj_login': User }, { "Content-Type": "application/json" })
                 .then(function (data) {
                 var res = JSON.parse(data.data);
                 if (res.data.STATUS == 'OK') {
@@ -187,7 +194,8 @@ var HomePage = /** @class */ (function () {
         var pin = this.Pin1 + '' + this.Pin2 + '' + this.Pin3 + '' + this.Pin4;
         var params = { UserID: this.LoginObj.UserID, PinID: pin };
         // console.log(this.webServerHost + '/dpo/public/login/');
-        this.http.post(this.webServerHost + '/dpo/public/login/pin/', { 'obj_login': params }, {})
+        this.http.setDataSerializer('json');
+        this.http.post(this.webServerHost + '/dpo/public/login/pin/', { 'obj_login': params }, { "Content-Type": "application/json" })
             .then(function (data) {
             console.log(data.data);
             var res = JSON.parse(data.data);
@@ -220,7 +228,8 @@ var HomePage = /** @class */ (function () {
         console.log('Pin setting..');
         var pin = this.Pin1 + '' + this.Pin2 + '' + this.Pin3 + '' + this.Pin4;
         var params = { UserID: userID, PinID: pin };
-        this.http.post(this.webServerHost + '/dpo/public/login/pin/setting/', { 'obj_setting': params }, {})
+        this.http.setDataSerializer('json');
+        this.http.post(this.webServerHost + '/dpo/public/login/pin/setting/', { 'obj_setting': params }, { "Content-Type": "application/json" })
             .then(function (data) {
             var res = JSON.parse(data.data);
             if (res.data.STATUS == 'OK') {
@@ -387,17 +396,12 @@ var HomePage = /** @class */ (function () {
     ], HomePage.prototype, "myInput", void 0);
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/home/home.html"*/'<ion-header *ngIf="this.pageType != null"  >\n  <ion-navbar >\n    <button ion-button menuToggle>\n      <ion-icon name="menu" color="light"></ion-icon>\n    </button>\n\n    <ion-title>\n      <div style="display: inline-block;">\n        <input placeholder="ค้นหา.." style="width: 80%; border: 1px solid #ccc;float: left;" [(ngModel)]="keyword">\n        <button style="float: left; background-color: #FFF; height: 33px; border-radius: 5px;" (tap)="searchNews(keyword)" [disabled]="keyword == \'\'">\n          <ion-icon name="md-search" color="primary"></ion-icon>\n        </button>\n      </div>\n    </ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (tap)="showNotify()" style="color:red; font-weight: bolder;">\n        <ion-icon name="md-notifications"  color="light" ></ion-icon> {{UnseenNotify}}\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <!--\n  <div style="overflow:auto;-webkit-overflow-scrolling:touch; height: 100%; margin-top: 20%; border: none;"  *ngIf="this.pageType != null">\n      \n      <iframe style="width:100%;height:100%;" [src]="pageType"></iframe>\n  </div>\n  -->\n  <div *ngIf="this.pageType != null" style=" height: 100%;">\n    \n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <page-news *ngIf="this.pageType == \'news\'"></page-news>\n        \n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <page-link *ngIf="this.pageType == \'link\'"></page-link>\n        \n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <page-in-phone-book *ngIf="this.pageType == \'telephonebook_internal\'"></page-in-phone-book>\n        \n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <page-ex-phone-book *ngIf="this.pageType == \'telephonebook_external\'"></page-ex-phone-book>\n        \n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <page-user-profile *ngIf="this.pageType == \'user_profile\'"></page-user-profile>\n        \n      </ion-col>\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs *ngIf="this.pageType == \'search\'" style="margin-top: 15%;">\n      <ion-col style="text-align: center;">\n        <ion-row responsive-sm responsive-xs>\n          <ion-col style="text-align: left;">\n            <u><h4>ผลลัพธ์การค้นหา</h4></u>\n          </ion-col>\n        </ion-row>\n        <span *ngIf="errorMsg != \'\'"></span>\n        <ion-row responsive-sm responsive-xs *ngFor="let data of SearchList">\n          <ion-col style="text-align: left;">\n            <div [innerHtml]="data.NewsTitle" style="color: #FF5C5C;"></div>\n            <div [innerHtml]="subStringNews(data.NewsContent)" style=""></div>\n            <hr>\n          </ion-col>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n  </div>\n  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == \'PIN-SETTING\'">\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <img src="assets/imgs/user.png" style="height:100%;">\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        กรุณาระบุ PIN 4 หลัก\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs  >\n      <ion-col col-2 offset-2>\n        <ion-input [(ngModel)]="Pin1" type="number" autofocus style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="1" (keyup)="moveFocus(b)"></ion-input>\n      </ion-col>\n      <ion-col col-2>\n        <ion-input [(ngModel)]="Pin2" type="number" #b style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="2" (keyup)="moveFocus(c)"></ion-input>\n      </ion-col>\n      <ion-col col-2>\n        <ion-input [(ngModel)]="Pin3" type="number" #c style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="3" (keyup)="moveFocus(d)"></ion-input>\n      </ion-col>\n      <ion-col col-2>\n        <ion-input [(ngModel)]="Pin4" type="number" #d style="border-bottom: 1px solid #999; text-align: center;" max="9" (keyup)="pinSetting(LoginObj.UserID)"></ion-input>\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == \'PIN-LOGIN\'">\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <img src="assets/imgs/user.png" style="height:100%;">\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        กรุณาระบุ PIN 4 หลัก\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs  >\n      <ion-col col-2 offset-2>\n        <ion-input [(ngModel)]="Pin1" type="number" #a autofocus style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="1" (keyup)="moveFocus(b)"></ion-input>\n      </ion-col>\n      <ion-col col-2>\n        <ion-input [(ngModel)]="Pin2" type="number" #b style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="2" (keyup)="moveFocus(c)"></ion-input>\n      </ion-col>\n      <ion-col col-2>\n        <ion-input [(ngModel)]="Pin3" type="number" #c style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="3" (keyup)="moveFocus(d)"></ion-input>\n      </ion-col>\n      <ion-col col-2>\n        <ion-input [(ngModel)]="Pin4" type="number" #d style="border-bottom: 1px solid #999; text-align: center;" max="9" (keyup)="loginWithPin(LoginObj.UserID, a)"></ion-input>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngIf="errMsg != \'\'">\n      <ion-col style="text-align: center;">\n        {{errorMsg}}\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == \'LOGIN\'">\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <img src="assets/imgs/user.png" style="height:100%;">\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col col-2 offset-1>\n       <img src="assets/imgs/user.png" style="height:30%; margin-top:10px;">\n      </ion-col>\n      <ion-col col-8>\n        <ion-input placeholder="Username" [(ngModel)]="User.Username" style="border-bottom: 1px solid #999;"></ion-input>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col col-2 offset-1>\n       <img src="assets/imgs/key.png" style="height:30%; margin-top:10px;">\n      </ion-col>\n      <ion-col col-8>\n        <ion-input type="password" placeholder="Password" [(ngModel)]="User.Password" style="border-bottom: 1px solid #999;"></ion-input>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n        <img src="assets/imgs/login.png" style="height:30%; margin-top:10px;" (tap)="login(User)">\n        \n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngIf="errMsg != \'\'">\n      <ion-col style="text-align: center;">\n        {{errorMsg}}\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <ion-content *ngIf="ShowNotify" style="position: absolute; top:11%; left:10%;right: 0px; width: 90%; height: 70%; background-color: #FFF; border:1px solid #999; border-radius: 10px;">\n     <ion-row responsive-sm responsive-xs *ngFor="let data of NotificationList" class="notify" [ngClass]="{\'unseen-notify\':data.NotificationStatus == \'Unseen\'}">\n      <ion-col style="text-align: left;">\n          <a (tap)="openWeb(data.NotificationUrl)">{{data.NotificationText}}</a>\n          <br>\n          <span style="color:#999;">{{convertDateToFullThaiDateTime(data.PushDateTime)}} น.</span>\n          <hr>\n      </ion-col>\n    </ion-row>\n  </ion-content>\n\n</ion-content>\n<ion-footer style="height:15%; text-align: center; background-color: #FFF;" *ngIf="this.pageType != null">\n  <ion-row responsive-sm responsive-xs>\n    <ion-col>\n      <img src="assets/imgs/room-icon.png" style="height:60%;" (tap)="openWeb(\'/#/roomconference\')">\n      <br>\n      จองห้องประชุม\n    </ion-col>\n    <ion-col>\n      <img src="assets/imgs/car-icon.png" style="height:60%;" (tap)="goUnderContruction()"><!--openWeb(\'/#/carreservation\')-->\n      <br>\n      จองรถ\n    </ion-col>\n    <ion-col>\n      <img src="assets/imgs/repair-icon.png" style="height:60%;" (tap)="openWeb(\'/#/repair/\')">\n      <br>\n      แจ้งซ่อม\n    </ion-col>\n    <ion-col>\n      <img src="assets/imgs/leave-icon.png" style="height:60%;" (tap)="openWebExternal(\'https://LOMS.dpo.go.th\')">\n      <br>\n      วันลา\n    </ion-col>\n  </ion-row>\n</ion-footer>\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\home\home.html"*/'<ion-header *ngIf="this.pageType != null"  >\n\n  <ion-navbar >\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu" color="light"></ion-icon>\n\n    </button>\n\n\n\n    <ion-title>\n\n      <div style="display: inline-block;">\n\n        <input placeholder="ค้นหา.." style="width: 80%; border: 1px solid #ccc;float: left; height: 33px;" [(ngModel)]="keyword">\n\n        <button style="float: left; background-color: #FFF; height: 33px; border-radius: 5px;" (tap)="searchNews(keyword)" [disabled]="keyword == \'\'">\n\n          <ion-icon name="md-search" color="primary"></ion-icon>\n\n        </button>\n\n      </div>\n\n    </ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button icon-only (tap)="showNotify()" style="color:red; font-weight: bolder;">\n\n        <ion-icon name="md-notifications"  color="light" ></ion-icon> {{UnseenNotify}}\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <!--\n\n  <div style="overflow:auto;-webkit-overflow-scrolling:touch; height: 100%; margin-top: 20%; border: none;"  *ngIf="this.pageType != null">\n\n      \n\n      <iframe style="width:100%;height:100%;" [src]="pageType"></iframe>\n\n  </div>\n\n  -->\n\n  <div *ngIf="this.pageType != null" style=" height: 100%;">\n\n    \n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <page-news *ngIf="this.pageType == \'news\'"></page-news>\n\n        \n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <page-link *ngIf="this.pageType == \'link\'"></page-link>\n\n        \n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <page-in-phone-book *ngIf="this.pageType == \'telephonebook_internal\'"></page-in-phone-book>\n\n        \n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <page-ex-phone-book *ngIf="this.pageType == \'telephonebook_external\'"></page-ex-phone-book>\n\n        \n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <page-user-profile *ngIf="this.pageType == \'user_profile\'"></page-user-profile>\n\n        \n\n      </ion-col>\n\n    </ion-row>\n\n\n\n    <ion-row responsive-sm responsive-xs *ngIf="this.pageType == \'search\'" style="margin-top: 15%;">\n\n      <ion-col style="text-align: center;">\n\n        <ion-row responsive-sm responsive-xs>\n\n          <ion-col style="text-align: left;">\n\n            <u><h4>ผลลัพธ์การค้นหา</h4></u>\n\n          </ion-col>\n\n        </ion-row>\n\n        <span *ngIf="errorMsg != \'\'"></span>\n\n        <ion-row responsive-sm responsive-xs *ngFor="let data of SearchList">\n\n          <ion-col style="text-align: left;">\n\n            <div [innerHtml]="data.NewsTitle" style="color: #FF5C5C;"></div>\n\n            <div [innerHtml]="subStringNews(data.NewsContent)" style=""></div>\n\n            <hr>\n\n          </ion-col>\n\n        </ion-row>\n\n      </ion-col>\n\n    </ion-row>\n\n  </div>\n\n  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == \'PIN-SETTING\'">\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <img src="assets/imgs/user.png" style="height:100%;">\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        กรุณาระบุ PIN 4 หลัก\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs  >\n\n      <ion-col col-2 offset-2>\n\n        <ion-input [(ngModel)]="Pin1" type="number" autofocus style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="1" (keyup)="moveFocus(b)"></ion-input>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n        <ion-input [(ngModel)]="Pin2" type="number" #b style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="2" (keyup)="moveFocus(c)"></ion-input>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n        <ion-input [(ngModel)]="Pin3" type="number" #c style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="3" (keyup)="moveFocus(d)"></ion-input>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n        <ion-input [(ngModel)]="Pin4" type="number" #d style="border-bottom: 1px solid #999; text-align: center;" max="9" (keyup)="pinSetting(LoginObj.UserID)"></ion-input>\n\n      </ion-col>\n\n    </ion-row>\n\n  </div>\n\n\n\n  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == \'PIN-LOGIN\'">\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <img src="assets/imgs/user.png" style="height:100%;">\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        กรุณาระบุ PIN 4 หลัก\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs  >\n\n      <ion-col col-2 offset-2>\n\n        <ion-input [(ngModel)]="Pin1" type="number" #a autofocus style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="1" (keyup)="moveFocus(b)"></ion-input>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n        <ion-input [(ngModel)]="Pin2" type="number" #b style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="2" (keyup)="moveFocus(c)"></ion-input>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n        <ion-input [(ngModel)]="Pin3" type="number" #c style="border-bottom: 1px solid #999; text-align: center;" max="9" tabindex="3" (keyup)="moveFocus(d)"></ion-input>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n        <ion-input [(ngModel)]="Pin4" type="number" #d style="border-bottom: 1px solid #999; text-align: center;" max="9" (keyup)="loginWithPin(LoginObj.UserID, a)"></ion-input>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs *ngIf="errMsg != \'\'">\n\n      <ion-col style="text-align: center;">\n\n        {{errorMsg}}\n\n      </ion-col>\n\n    </ion-row>\n\n  </div>\n\n\n\n  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == \'LOGIN\'">\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <img src="assets/imgs/user.png" style="height:100%;">\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col col-2 offset-1>\n\n       <img src="assets/imgs/user.png" style="height:30%; margin-top:10px;">\n\n      </ion-col>\n\n      <ion-col col-8>\n\n        <ion-input placeholder="Username" [(ngModel)]="User.Username" style="border-bottom: 1px solid #999;"></ion-input>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col col-2 offset-1>\n\n       <img src="assets/imgs/key.png" style="height:30%; margin-top:10px;">\n\n      </ion-col>\n\n      <ion-col col-8>\n\n        <ion-input type="password" placeholder="Password" [(ngModel)]="User.Password" style="border-bottom: 1px solid #999;"></ion-input>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n        <img src="assets/imgs/login.png" style="height:30%; margin-top:10px;" (tap)="login(User)">\n\n        \n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs *ngIf="errMsg != \'\'">\n\n      <ion-col style="text-align: center;">\n\n        {{errorMsg}}\n\n      </ion-col>\n\n    </ion-row>\n\n  </div>\n\n\n\n  <ion-content *ngIf="ShowNotify" style="position: absolute; top:11%; left:10%;right: 0px; width: 90%; height: 70%; background-color: #FFF; border:1px solid #999; border-radius: 10px;">\n\n     <ion-row responsive-sm responsive-xs *ngFor="let data of NotificationList" class="notify" [ngClass]="{\'unseen-notify\':data.NotificationStatus == \'Unseen\'}">\n\n      <ion-col style="text-align: left;">\n\n          <a (tap)="openWeb(data.NotificationUrl)">{{data.NotificationText}}</a>\n\n          <br>\n\n          <span style="color:#999;">{{convertDateToFullThaiDateTime(data.PushDateTime)}} น.</span>\n\n          <hr>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-content>\n\n\n\n</ion-content>\n\n<ion-footer style="height:15%; text-align: center; background-color: #FFF;" *ngIf="this.pageType != null">\n\n  <ion-row responsive-sm responsive-xs>\n\n    <ion-col>\n\n      <img src="assets/imgs/room-icon.png" style="height:60%;" (tap)="openWeb(\'/#/roomconference\')">\n\n      <br>\n\n      จองห้องประชุม\n\n    </ion-col>\n\n    <ion-col>\n\n      <img src="assets/imgs/car-icon.png" style="height:60%;" (tap)="goUnderContruction()"><!--openWeb(\'/#/carreservation\')-->\n\n      <br>\n\n      จองรถ\n\n    </ion-col>\n\n    <ion-col>\n\n      <img src="assets/imgs/repair-icon.png" style="height:60%;" (tap)="openWeb(\'/#/repair/\')">\n\n      <br>\n\n      แจ้งซ่อม\n\n    </ion-col>\n\n    <ion-col>\n\n      <img src="assets/imgs/leave-icon.png" style="height:60%;" (tap)="openWebExternal(\'https://LOMS.dpo.go.th\')">\n\n      <br>\n\n      วันลา\n\n    </ion-col>\n\n  </ion-row>\n\n</ion-footer>\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_4__ionic_native_in_app_browser__["a" /* InAppBrowser */],
-            __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */],
-            __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__["a" /* Badge */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__["a" /* HTTP */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__["a" /* HTTP */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__["a" /* InAppBrowser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__["a" /* InAppBrowser */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_badge__["a" /* Badge */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_badge__["a" /* Badge */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _h || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -405,51 +409,6 @@ var HomePage = /** @class */ (function () {
 /***/ }),
 
 /***/ 199:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CarPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Generated class for the CarPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var CarPage = /** @class */ (function () {
-    function CarPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    CarPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad CarPage');
-    };
-    CarPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-car',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/car/car.html"*/'<!--\n  Generated template for the CarPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Car</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/car/car.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
-    ], CarPage);
-    return CarPage;
-}());
-
-//# sourceMappingURL=car.js.map
-
-/***/ }),
-
-/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -515,19 +474,19 @@ var ExPhoneBookPage = /** @class */ (function () {
     };
     ExPhoneBookPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ex-phone-book',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/ex-phone-book/ex-phone-book.html"*/'<div style="padding-top: 2%;">\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>สมุดโทรศัพท์ภายนอก</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >\n      <ion-col style="text-align: left;">\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n        <br>\n        <ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}\n    	<br>\n    	<hr>\n      </ion-col>\n    </ion-row>\n    \n	\n</div>\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/ex-phone-book/ex-phone-book.html"*/,
+            selector: 'page-ex-phone-book',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\ex-phone-book\ex-phone-book.html"*/'<div style="padding-top: 2%;">\n\n	<ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n    	<h4>สมุดโทรศัพท์ภายนอก</h4>\n\n    	<br>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >\n\n      <ion-col style="text-align: left;">\n\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n\n        <br>\n\n        <ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}\n\n    	<br>\n\n    	<hr>\n\n      </ion-col>\n\n    </ion-row>\n\n    \n\n	\n\n</div>\n\n\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\ex-phone-book\ex-phone-book.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _d || Object])
     ], ExPhoneBookPage);
     return ExPhoneBookPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=ex-phone-book.js.map
 
 /***/ }),
 
-/***/ 201:
+/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -593,19 +552,19 @@ var InPhoneBookPage = /** @class */ (function () {
     };
     InPhoneBookPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-in-phone-book',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/in-phone-book/in-phone-book.html"*/'<div style="padding-top: 2%;">\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>สมุดโทรศัพท์ภายใน</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >\n      <ion-col style="text-align: left;">\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n      	<br>\n      	<ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}\n    	<br>\n    	<hr>\n      </ion-col>\n    </ion-row>\n    \n	\n</div>\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/in-phone-book/in-phone-book.html"*/,
+            selector: 'page-in-phone-book',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\in-phone-book\in-phone-book.html"*/'<div style="padding-top: 2%;">\n\n	<ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n    	<h4>สมุดโทรศัพท์ภายใน</h4>\n\n    	<br>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >\n\n      <ion-col style="text-align: left;">\n\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n\n      	<br>\n\n      	<ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}\n\n    	<br>\n\n    	<hr>\n\n      </ion-col>\n\n    </ion-row>\n\n    \n\n	\n\n</div>\n\n\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\in-phone-book\in-phone-book.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _d || Object])
     ], InPhoneBookPage);
     return InPhoneBookPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=in-phone-book.js.map
 
 /***/ }),
 
-/***/ 202:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -680,21 +639,158 @@ var LinkPage = /** @class */ (function () {
     };
     LinkPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-link',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/link/link.html"*/'<div style="padding-top: 2%;">\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>ลิ้งค์ที่เกี่ยวข้อง</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngFor="let data of LinkList" >\n      <ion-col style="text-align: center;">\n      	<a (tap)="openWeb(data.LinkUrl)">\n	      	<img src="{{webServerHost + \'/\' + data.LinkIcon}}" alt="ไม่มีรูป" style="height: 80px; width: auto;">\n	    	<div [innerHtml]="data.LinkTopic"></div>\n	    </a>\n    	<br>\n    	<hr>\n      </ion-col>\n    </ion-row>\n    \n	\n</div>\n\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/link/link.html"*/,
+            selector: 'page-link',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\link\link.html"*/'<div style="padding-top: 2%;">\n\n	<ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n    	<h4>ลิ้งค์ที่เกี่ยวข้อง</h4>\n\n    	<br>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs *ngFor="let data of LinkList" >\n\n      <ion-col style="text-align: center;">\n\n      	<a (tap)="openWeb(data.LinkUrl)">\n\n	      	<img src="{{webServerHost + \'/\' + data.LinkIcon}}" alt="ไม่มีรูป" style="height: 80px; width: auto;">\n\n	    	<div [innerHtml]="data.LinkTopic"></div>\n\n	    </a>\n\n    	<br>\n\n    	<hr>\n\n      </ion-col>\n\n    </ion-row>\n\n    \n\n	\n\n</div>\n\n\n\n\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\link\link.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_4__ionic_native_in_app_browser__["a" /* InAppBrowser */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_in_app_browser__["a" /* InAppBrowser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_in_app_browser__["a" /* InAppBrowser */]) === "function" && _e || Object])
     ], LinkPage);
     return LinkPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=link.js.map
 
 /***/ }),
 
+/***/ 202:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CarPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the CarPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var CarPage = /** @class */ (function () {
+    function CarPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    CarPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad CarPage');
+    };
+    CarPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-car',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\car\car.html"*/'<!--\n\n  Generated template for the CarPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Car</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\car\car.html"*/,
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object])
+    ], CarPage);
+    return CarPage;
+    var _a, _b;
+}());
+
+//# sourceMappingURL=car.js.map
+
+/***/ }),
+
 /***/ 203:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProfilePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(25);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the UserProfilePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var UserProfilePage = /** @class */ (function () {
+    function UserProfilePage(navCtrl, navParams, http, storage) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.http = http;
+        this.storage = storage;
+        this.webServerHost = 'https://dportal.dpo.go.th';
+        this.offset = 0;
+        this.LoginObj = {};
+        this.Data = {};
+        storage.get('LoginObj').then(function (val) {
+            if (val != null && val != '') {
+                _this.LoginObj = JSON.parse(val);
+                _this.getUserProfiles();
+            }
+        });
+    }
+    UserProfilePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad UserProfilePage');
+    };
+    UserProfilePage.prototype.getUserProfiles = function () {
+        var _this = this;
+        var url = this.webServerHost + '/dpo/public/getUserContact/' + this.LoginObj.UserID;
+        this.http.get(url, {}, {})
+            .then(function (data) {
+            var res = JSON.parse(data.data);
+            _this.Data = res.data.DATA;
+            console.log(JSON.stringify(_this.Data));
+        })
+            .catch(function (error) {
+            console.log(error.status);
+            console.log(error.error); // error message as string
+            console.log(error.headers);
+        });
+    };
+    UserProfilePage.prototype.saveData = function (Data) {
+        var url = this.webServerHost + '/dpo/public/updatePhoneBookContact/';
+        this.http.post(url, { 'Contact': Data }, {})
+            .then(function (data) {
+            var res = JSON.parse(data.data);
+            alert('บันทึกสำเร็จ');
+            // this.Data = res.data.DATA;
+            // console.log(JSON.stringify(this.Data));
+        })
+            .catch(function (error) {
+            console.log(error.status);
+            console.log(error.error); // error message as string
+            console.log(error.headers);
+        });
+    };
+    UserProfilePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-user-profile',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\user-profile\user-profile.html"*/'<div style="padding-top: 2%;">\n\n	<ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n    	<h4>แก้ไขข้อมูล</h4>\n\n    	<br>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-item>\n\n	    <ion-label color="primary">เบอร์โต๊ะ</ion-label>\n\n	    <ion-input [(ngModel)]="Data.InternalContact"></ion-input>\n\n	  </ion-item>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-item>\n\n	    <ion-label color="primary">เบอร์โทรศัพท์</ion-label>\n\n	    <ion-input [(ngModel)]="Data.Tel"></ion-input>\n\n	  </ion-item>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-item>\n\n	    <ion-label color="primary">แฟกซ์</ion-label>\n\n	    <ion-input [(ngModel)]="Data.Fax"></ion-input>\n\n	  </ion-item>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n      <ion-item>\n\n	    <ion-label color="primary">มือถือ</ion-label>\n\n	    <ion-input [(ngModel)]="Data.Mobile"></ion-input>\n\n	  </ion-item>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs>\n\n    	<ion-col style="text-align: center;">\n\n	    	<br>\n\n	    	<br>\n\n		    <button ion-button round (tap)="saveData(Data)">บันทึก</button>\n\n		</ion-col>\n\n    </ion-row>\n\n    \n\n	\n\n</div>\n\n\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\user-profile\user-profile.html"*/,
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _d || Object])
+    ], UserProfilePage);
+    return UserProfilePage;
+    var _a, _b, _c, _d;
+}());
+
+//# sourceMappingURL=user-profile.js.map
+
+/***/ }),
+
+/***/ 204:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -810,20 +906,19 @@ var NewsPage = /** @class */ (function () {
     };
     NewsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-news',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/news/news.html"*/'<!--\n  Generated template for the NewsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<div style="padding-top: 2%;">\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>ข่าวประชาสัมพันธ์</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngFor="let data of NewsList" >\n      <ion-col style="text-align: center;">\n      	<img src="{{webServerHost + \'/\' + data.NewsPicture}}">\n    	<div [innerHtml]="data.NewsTitle"></div>\n      <span style="text-align: right; color:#999;">{{convertDateToFullThaiDateIgnoreTime(data.NewsDateTime)}}</span>\n    	<br>\n    	<hr>\n      </ion-col>\n      \n    </ion-row>\n    \n	\n</div>\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/news/news.html"*/,
+            selector: 'page-news',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\news\news.html"*/'<!--\n\n  Generated template for the NewsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n\n\n<div style="padding-top: 2%;">\n\n	<ion-row responsive-sm responsive-xs>\n\n      <ion-col style="text-align: center;">\n\n    	<h4>ข่าวประชาสัมพันธ์</h4>\n\n    	<br>\n\n      </ion-col>\n\n    </ion-row>\n\n    <ion-row responsive-sm responsive-xs *ngFor="let data of NewsList" >\n\n      <ion-col style="text-align: center;">\n\n      	<img src="{{webServerHost + \'/\' + data.NewsPicture}}">\n\n    	<div [innerHtml]="data.NewsTitle"></div>\n\n      <span style="text-align: right; color:#999;">{{convertDateToFullThaiDateIgnoreTime(data.NewsDateTime)}}</span>\n\n    	<br>\n\n    	<hr>\n\n      </ion-col>\n\n      \n\n    </ion-row>\n\n    \n\n	\n\n</div>\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\news\news.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _d || Object])
     ], NewsPage);
     return NewsPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=news.js.map
 
 /***/ }),
 
-/***/ 204:
+/***/ 205:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -857,107 +952,15 @@ var RepairPage = /** @class */ (function () {
     };
     RepairPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-repair',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/repair/repair.html"*/'<!--\n  Generated template for the RepairPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Repair</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/repair/repair.html"*/,
+            selector: 'page-repair',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\repair\repair.html"*/'<!--\n\n  Generated template for the RepairPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Repair</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\repair\repair.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object])
     ], RepairPage);
     return RepairPage;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=repair.js.map
-
-/***/ }),
-
-/***/ 205:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProfilePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(25);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Generated class for the UserProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var UserProfilePage = /** @class */ (function () {
-    function UserProfilePage(navCtrl, navParams, http, storage) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.http = http;
-        this.storage = storage;
-        this.webServerHost = 'https://dportal.dpo.go.th';
-        this.offset = 0;
-        this.LoginObj = {};
-        this.Data = {};
-        storage.get('LoginObj').then(function (val) {
-            if (val != null && val != '') {
-                _this.LoginObj = JSON.parse(val);
-                _this.getUserProfiles();
-            }
-        });
-    }
-    UserProfilePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad UserProfilePage');
-    };
-    UserProfilePage.prototype.getUserProfiles = function () {
-        var _this = this;
-        var url = this.webServerHost + '/dpo/public/getUserContact/' + this.LoginObj.UserID;
-        this.http.get(url, {}, {})
-            .then(function (data) {
-            var res = JSON.parse(data.data);
-            _this.Data = res.data.DATA;
-            console.log(JSON.stringify(_this.Data));
-        })
-            .catch(function (error) {
-            console.log(error.status);
-            console.log(error.error); // error message as string
-            console.log(error.headers);
-        });
-    };
-    UserProfilePage.prototype.saveData = function (Data) {
-        var url = this.webServerHost + '/dpo/public/updatePhoneBookContact/';
-        this.http.post(url, { 'Contact': Data }, {})
-            .then(function (data) {
-            var res = JSON.parse(data.data);
-            alert('บันทึกสำเร็จ');
-            // this.Data = res.data.DATA;
-            // console.log(JSON.stringify(this.Data));
-        })
-            .catch(function (error) {
-            console.log(error.status);
-            console.log(error.error); // error message as string
-            console.log(error.headers);
-        });
-    };
-    UserProfilePage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-user-profile',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/user-profile/user-profile.html"*/'<div style="padding-top: 2%;">\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>แก้ไขข้อมูล</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-item>\n	    <ion-label color="primary">เบอร์โต๊ะ</ion-label>\n	    <ion-input [(ngModel)]="Data.InternalContact"></ion-input>\n	  </ion-item>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-item>\n	    <ion-label color="primary">เบอร์โทรศัพท์</ion-label>\n	    <ion-input [(ngModel)]="Data.Tel"></ion-input>\n	  </ion-item>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-item>\n	    <ion-label color="primary">แฟกซ์</ion-label>\n	    <ion-input [(ngModel)]="Data.Fax"></ion-input>\n	  </ion-item>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n      <ion-item>\n	    <ion-label color="primary">มือถือ</ion-label>\n	    <ion-input [(ngModel)]="Data.Mobile"></ion-input>\n	  </ion-item>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs>\n    	<ion-col style="text-align: center;">\n	    	<br>\n	    	<br>\n		    <button ion-button round (tap)="saveData(Data)">บันทึก</button>\n		</ion-col>\n    </ion-row>\n    \n	\n</div>\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/user-profile/user-profile.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
-    ], UserProfilePage);
-    return UserProfilePage;
-}());
-
-//# sourceMappingURL=user-profile.js.map
 
 /***/ }),
 
@@ -985,15 +988,15 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(280);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_news_news__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_link_link__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_ex_phone_book_ex_phone_book__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_in_phone_book_in_phone_book__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_repair_repair__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_car_car__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_user_profile_user_profile__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_news_news__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_link_link__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_ex_phone_book_ex_phone_book__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_in_phone_book_in_phone_book__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_repair_repair__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_car_car__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_user_profile_user_profile__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_list_list__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_status_bar__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_splash_screen__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_http__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_storage__ = __webpack_require__(25);
@@ -1045,13 +1048,13 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/car/car.module#CarPageModule', name: 'CarPage', segment: 'car', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ex-phone-book/ex-phone-book.module#ExPhoneBookPageModule', name: 'ExPhoneBookPage', segment: 'ex-phone-book', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/in-phone-book/in-phone-book.module#InPhoneBookPageModule', name: 'InPhoneBookPage', segment: 'in-phone-book', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/link/link.module#LinkPageModule', name: 'LinkPage', segment: 'link', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/car/car.module#CarPageModule', name: 'CarPage', segment: 'car', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/user-profile/user-profile.module#UserProfilePageModule', name: 'UserProfilePage', segment: 'user-profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/news/news.module#NewsPageModule', name: 'NewsPage', segment: 'news', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/repair/repair.module#RepairPageModule', name: 'RepairPage', segment: 'repair', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/user-profile/user-profile.module#UserProfilePageModule', name: 'UserProfilePage', segment: 'user-profile', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/repair/repair.module#RepairPageModule', name: 'RepairPage', segment: 'repair', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_16__ionic_storage__["a" /* IonicStorageModule */].forRoot()
@@ -1093,7 +1096,7 @@ var AppModule = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__ = __webpack_require__(49);
@@ -1171,18 +1174,15 @@ var MyApp = /** @class */ (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */]) === "function" && _a || Object)
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/app/app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title ><span style="color:#FFF;">Menu</span></ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content class="my-container">\n    <ion-list style="background: transparent;">\n      <button  menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.url)"  style="background: transparent; color: #FFF;">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\app\app.html"*/'<ion-menu [content]="content">\n\n  <ion-header>\n\n    <ion-toolbar>\n\n      <ion-title ><span style="color:#FFF;">Menu</span></ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="my-container">\n\n    <ion-list style="background: transparent;">\n\n      <button  menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.url)"  style="background: transparent; color: #FFF;">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\app\app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
-            __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__["a" /* InAppBrowser */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__["a" /* InAppBrowser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__["a" /* InAppBrowser */]) === "function" && _f || Object])
     ], MyApp);
     return MyApp;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=app.component.js.map
@@ -1234,12 +1234,12 @@ var ListPage = /** @class */ (function () {
     };
     ListPage = ListPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-list',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/list/list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>List</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n      <ion-icon [name]="item.icon" item-start></ion-icon>\n      {{item.title}}\n      <div class="item-note" item-end>\n        {{item.note}}\n      </div>\n    </button>\n  </ion-list>\n  <div *ngIf="selectedItem" padding>\n    You navigated here from <b>{{selectedItem.title}}</b>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/list/list.html"*/
+            selector: 'page-list',template:/*ion-inline-start:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\list\list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>List</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n\n      <ion-icon [name]="item.icon" item-start></ion-icon>\n\n      {{item.title}}\n\n      <div class="item-note" item-end>\n\n        {{item.note}}\n\n      </div>\n\n    </button>\n\n  </ion-list>\n\n  <div *ngIf="selectedItem" padding>\n\n    You navigated here from <b>{{selectedItem.title}}</b>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"c:\Users\Lenovo\source\repos\DportalApp\src\pages\list\list.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object])
     ], ListPage);
     return ListPage;
-    var ListPage_1;
+    var ListPage_1, _a, _b;
 }());
 
 //# sourceMappingURL=list.js.map

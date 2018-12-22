@@ -6,7 +6,7 @@
 
     <ion-title>
       <div style="display: inline-block;">
-        <input placeholder="ค้นหา.." style="width: 80%; border: 1px solid #ccc;float: left;" [(ngModel)]="keyword">
+        <input placeholder="ค้นหา.." style="width: 80%; border: 1px solid #ccc;float: left; height: 33px;" [(ngModel)]="keyword">
         <button style="float: left; background-color: #FFF; height: 33px; border-radius: 5px;" (tap)="searchNews(keyword)" [disabled]="keyword == ''">
           <ion-icon name="md-search" color="primary"></ion-icon>
         </button>
