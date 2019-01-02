@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
+import { CallNumber } from '@ionic-native/call-number';
 
 /**
  * Generated class for the InPhoneBookPage page.
@@ -22,7 +23,8 @@ export class InPhoneBookPage {
 	LoginObj : any = {};
 	PhoneList :any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public http:HTTP
-	      	, private storage: Storage) {
+	      	, private storage: Storage
+	      	,private callNumber: CallNumber) {
   		storage.get('LoginObj').then((val) => {
 			if(val != null && val != ''){
         		this.LoginObj = JSON.parse(val);
@@ -33,6 +35,12 @@ export class InPhoneBookPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InPhoneBookPage');
+  }
+
+  makeCall(phone_number){
+  	if(phone_number != ''){
+  		this.callNumber.callNumber(phone_number, true);
+  	}
   }
 
   getPhone(){

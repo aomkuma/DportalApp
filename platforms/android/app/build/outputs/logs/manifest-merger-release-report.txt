@@ -1,15 +1,15 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-15:12
+ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-17:12
+INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-17:12
+INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-17:12
+INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-17:12
 MERGED from [com.android.support:customtabs:23.3.0] C:\Users\Lenovo\.gradle\caches\transforms-1\files-1.1\customtabs-23.3.0.aar\2b2fc057c17bddfae55dd7e8284c8977\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:support-v4:23.3.0] C:\Users\Lenovo\.gradle\caches\transforms-1\files-1.1\support-v4-23.3.0.aar\3c75fb6920652bfe39578bfa9ba057d0\AndroidManifest.xml:17:1-24:12
 MERGED from [:CordovaLib] C:\Users\Lenovo\source\repos\DportalApp\platforms\android\CordovaLib\build\intermediates\manifests\full\release\AndroidManifest.xml:20:1-27:12
-INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-17:12
+INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-17:12
+INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:1-17:12
 	package
 		ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:2:98-125
 		INJECTED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml
@@ -104,3 +104,13 @@ uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:14:5-81
 	android:name
 		ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:14:22-78
+uses-permission#android.permission.CALL_PHONE
+ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:15:5-69
+	android:name
+		ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:15:22-66
+uses-feature#android.hardware.telephony
+ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:16:5-88
+	android:required
+		ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:16:61-85
+	android:name
+		ADDED from C:\Users\Lenovo\source\repos\DportalApp\platforms\android\app\src\main\AndroidManifest.xml:16:19-60

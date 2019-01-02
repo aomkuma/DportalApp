@@ -37,7 +37,7 @@ export class NewsPage {
 	}
 
 	getNews(){
-		var url = this.webServerHost + "/dpo/public/getNewsListView/" + this.offset +"/0";
+		var url = this.webServerHost + "/dpo/public/getNewsListView/" + this.offset +"/0/Y";
 		this.http.get(url,{},{})
 	      .then(data => {
 	        var res = JSON.parse(data.data);

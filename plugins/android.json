@@ -37,6 +37,9 @@
     },
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
     }
   },
   "dependent_plugins": {

@@ -1,4 +1,4 @@
-<div style="padding-top: 2%;">
+<div>
 	<ion-row responsive-sm responsive-xs>
       <ion-col style="text-align: center;">
     	<h4>สมุดโทรศัพท์ภายใน</h4>
@@ -9,7 +9,8 @@
       <ion-col style="text-align: left;">
       	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}
       	<br>
-      	<ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}
+        <br>
+      	<span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span>
     	<br>
     	<hr>
       </ion-col>

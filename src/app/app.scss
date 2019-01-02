@@ -15,8 +15,15 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .toolbar-background {
-	background-image: url('../../../assets/imgs/bg_page_2.png');
-  	background-color: #01a3a4;
+    background-image: url('../assets/imgs/side-bg.png')!important; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-position: left; 
+    background-repeat: none;
+    background-color: #01a3a4;
+    padding: none;
+    width: 600px;
+    margin-left: -22px;
 }
 
 .my-container {
@@ -29,7 +36,7 @@
     margin:none;
     color:#FFF;
     margin-left:0px;
-    background-color:#000;
+    background-color:#01a3a4;
     background-position: left -20px bottom -30px;
 }
 .transp .item-content {

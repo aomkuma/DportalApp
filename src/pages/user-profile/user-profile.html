@@ -1,4 +1,4 @@
-<div style="padding-top: 2%;">
+<div>
 	<ion-row responsive-sm responsive-xs>
       <ion-col style="text-align: center;">
     	<h4>แก้ไขข้อมูล</h4>
@@ -28,6 +28,24 @@
 	    <ion-label color="primary">มือถือ</ion-label>
 	    <ion-input [(ngModel)]="Data.Mobile"></ion-input>
 	  </ion-item>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-item>
+      <ion-label color="primary">PIN เดิม</ion-label>
+      <ion-input type="password" [(ngModel)]="Data.PinID" readonly="true"></ion-input>
+    </ion-item>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-item>
+      <ion-label color="primary">PIN ใหม่</ion-label>
+      <ion-input type="tel" [(ngModel)]="NewPinID" maxlength="4" max="9999"></ion-input>
+    </ion-item>
+    </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-item>
+      <ion-label color="primary">ยืนยัน PIN ใหม่</ion-label>
+      <ion-input type="tel" [(ngModel)]="ConfirmPinID" maxlength="4" max="9999"></ion-input>
+    </ion-item>
     </ion-row>
     <ion-row responsive-sm responsive-xs>
     	<ion-col style="text-align: center;">

@@ -21,6 +21,8 @@ export class UserProfilePage {
 	offset = 0;
 	LoginObj : any = {};
 	Data :any = {};
+	NewPinID : string = '';
+	ConfirmPinID : string = '';
 	constructor(public navCtrl: NavController, public navParams: NavParams, public http:HTTP
 	      	, private storage: Storage) {
 		storage.get('LoginObj').then((val) => {
@@ -53,11 +55,29 @@ export class UserProfilePage {
 	}
 
 	saveData(Data){
+
+		if(this.NewPinID != ''){
+			if(this.ConfirmPinID == ''){
+				alert('กรุณายืนยัน PIN ใหม่');
+				return false;
+			}else if(this.NewPinID != this.ConfirmPinID){
+				alert('รหัส PIN ใหม่และ ยืนยันรหัส PIN ใหม่ไม่ตรงกัน กรุณาตรวจสอบข้อมูล');
+				return false;
+			}else if(this.NewPinID == Data.PinID){
+				alert('รหัส PIN ใหม่ ซ้ำกับ PIN เดิม');
+				return false;
+			}else{
+				Data.PinID = this.NewPinID;
+				console.log(Data.PinID);
+			}
+		}
 		var url = this.webServerHost + '/dpo/public/updatePhoneBookContact/';
 		this.http.post(url,{'Contact' : Data},{})
 	      .then(data => {
 	        var res = JSON.parse(data.data);
 	        alert('บันทึกสำเร็จ');
+	        this.NewPinID = '';
+	        this.ConfirmPinID = '';
 	        // this.Data = res.data.DATA;
 	        // console.log(JSON.stringify(this.Data));
 	        })

@@ -1,4 +1,4 @@
-<ion-header *ngIf="this.pageType == null"  style="background-color: #FFF;">
+<ion-header *ngIf="this.pageType == null"  style="background-color: #FFF; background-">
   <ion-navbar >
   </ion-navbar>
 </ion-header>
@@ -32,46 +32,26 @@
   </div>
   -->
   <div *ngIf="this.pageType != null" style=" height: 100%;">
-    
     <ion-row responsive-sm responsive-xs>
       <ion-col style="text-align: center;">
-        <page-news *ngIf="this.pageType == 'news'"></page-news>
-        
-      </ion-col>
-    </ion-row>
-    <ion-row responsive-sm responsive-xs>
-      <ion-col style="text-align: center;">
-        <page-link *ngIf="this.pageType == 'link'"></page-link>
-        
-      </ion-col>
-    </ion-row>
-    <ion-row responsive-sm responsive-xs>
-      <ion-col style="text-align: center;">
-        <page-in-phone-book *ngIf="this.pageType == 'telephonebook_internal'"></page-in-phone-book>
-        
-      </ion-col>
-    </ion-row>
-    <ion-row responsive-sm responsive-xs>
-      <ion-col style="text-align: center;">
-        <page-ex-phone-book *ngIf="this.pageType == 'telephonebook_external'"></page-ex-phone-book>
-        
-      </ion-col>
-    </ion-row>
-    <ion-row responsive-sm responsive-xs>
-      <ion-col style="text-align: center;">
-        <page-user-profile *ngIf="this.pageType == 'user_profile'"></page-user-profile>
-        
-      </ion-col>
-    </ion-row>
 
-    <ion-row responsive-sm responsive-xs *ngIf="this.pageType == 'search'" style="margin-top: 15%;">
+        <page-user-profile *ngIf="this.pageType == 'user_profile'"></page-user-profile>
+        <page-news *ngIf="this.pageType == 'news'"></page-news>
+        <page-link *ngIf="this.pageType == 'link'"></page-link>
+        <page-in-phone-book *ngIf="this.pageType == 'telephonebook_internal'"></page-in-phone-book>
+        <page-ex-phone-book *ngIf="this.pageType == 'telephonebook_external'"></page-ex-phone-book>
+
+      </ion-col>
+    </ion-row>
+    
+    <ion-row responsive-sm responsive-xs *ngIf="this.pageType == 'search'">
       <ion-col style="text-align: center;">
         <ion-row responsive-sm responsive-xs>
           <ion-col style="text-align: left;">
             <u><h4>ผลลัพธ์การค้นหา</h4></u>
           </ion-col>
         </ion-row>
-        <span *ngIf="errorMsg != ''"></span>
+        <span *ngIf="errorMsg != ''">{{errorMsg}}</span>
         <ion-row responsive-sm responsive-xs *ngFor="let data of SearchList">
           <ion-col style="text-align: left;">
             <div [innerHtml]="data.NewsTitle" style="color: #FF5C5C;"></div>
@@ -81,6 +61,13 @@
         </ion-row>
       </ion-col>
     </ion-row>
+    <ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+        <br><br><br><br>
+        
+      </ion-col>
+    </ion-row>
+    
   </div>
   <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'PIN-SETTING'">
     <ion-row responsive-sm responsive-xs>

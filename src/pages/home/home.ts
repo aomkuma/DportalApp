@@ -55,9 +55,11 @@ export class HomePage {
         console.log(this.LoginObj.UserID);
         this.LoginPage = 'PIN-LOGIN';
 
-        this.getNotifications();
-        setInterval(function(){
-          this.getNotifications();  
+        
+        this.getNotifications();  
+        setInterval(() => { 
+          console.log('Get Notification');
+           this.getNotifications();  
         }, 360000);
         
         if(this.pageType != undefined && this.pageType != null){
@@ -93,9 +95,11 @@ export class HomePage {
             this.storage.set('LoginObj', JSON.stringify(this.LoginObj));
             this.setPageType('news');
             this.getNotifications();
-            setInterval(function(){
-              this.getNotifications();  
-            }, 360000);
+            // this.getNotifications();
+            // setInterval(function(){
+            //   console.log('get notify 2');
+            //   this.getNotifications();  
+            // }, 360000);
           }
           // this.LoginPage = 'PIN-SETTING';
           this.errorMsg = '';
@@ -131,9 +135,11 @@ export class HomePage {
         this.LoginObj = res.data.DATA.UserData;
         this.setPageType('news');
         this.getNotifications();
-        setInterval(function(){
-          this.getNotifications();  
-        }, 360000);
+        // this.getNotifications();
+        // setInterval(function(){
+        //   console.log('get notify 3');
+        //   this.getNotifications();  
+        // }, 360000);
 
         this.errorMsg = '';
       }else{
@@ -170,10 +176,6 @@ export class HomePage {
         this.LoginObj = res.data.DATA.UserData;
         this.setPageType('news');
         this.getNotifications();
-        setInterval(function(){
-          this.getNotifications();  
-        }, 360000);
-        
         this.errorMsg = '';
       }else{
         this.errorMsg = res.data.DATA;
@@ -203,7 +205,7 @@ export class HomePage {
      var openurl = this.webServerHost + '/mobile/' + url + '//' + btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));// + (JSON.stringify(this.LoginObj));
      console.log(openurl);
      // url = url + '/'+ (JSON.stringify(this.LoginObj));
-     const browser = this.iab.create(openurl,'_blank',{location:'yes', 'clearcache' :'yes'});
+     const browser = this.iab.create(openurl,'_blank',{location:'no', 'clearcache' :'yes', 'zoom':'no'});
       browser.on('loaderror').subscribe(loadError => {
           console.log(loadError);
       });
@@ -213,7 +215,7 @@ export class HomePage {
      
      console.log(url);
      // url = url + '/'+ (JSON.stringify(this.LoginObj));
-     const browser = this.iab.create(url,'_blank',{location:'yes', 'clearcache' :'yes'});
+     const browser = this.iab.create(url,'_blank',{location:'no', 'clearcache' :'yes'});
       browser.on('loaderror').subscribe(loadError => {
           console.log(loadError);
       });
@@ -238,6 +240,9 @@ export class HomePage {
           this.SearchList = res.data.DATA.NewsList;
           this.setPageType('search');
           this.errorMsg = '';
+          if(this.SearchList.length == 0){
+            this.errorMsg = 'ไม่พบผลลัพธ์การค้นหา';
+          }
         }else{
           this.errorMsg = 'ไม่พบผลลัพธ์การค้นหา';
         }
@@ -284,7 +289,7 @@ export class HomePage {
    }
 
    subStringNews(text){
-     return text.substring(0,150);
+     return text.substring(0,150) + '...';
    }
 
    convertDateToFullThaiDateTime(date){

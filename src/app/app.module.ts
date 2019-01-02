@@ -20,6 +20,7 @@ import { HTTP } from '@ionic-native/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Badge } from '@ionic-native/badge';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { Badge } from '@ionic-native/badge';
     ,HTTP
     ,InAppBrowser
     ,Badge
+    ,CallNumber
   ]
 })
 export class AppModule {}
