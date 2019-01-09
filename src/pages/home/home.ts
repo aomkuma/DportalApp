@@ -202,13 +202,24 @@ export class HomePage {
 
   openWeb(url)
    {
-     var openurl = this.webServerHost + '/mobile/' + url + '//' + btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));// + (JSON.stringify(this.LoginObj));
+     var openurl = this.webServerHost + '/mobile' + url + '//' + btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));// + (JSON.stringify(this.LoginObj));
      console.log(openurl);
      // url = url + '/'+ (JSON.stringify(this.LoginObj));
-     const browser = this.iab.create(openurl,'_blank',{location:'no', 'clearcache' :'yes', 'zoom':'no'});
-      browser.on('loaderror').subscribe(loadError => {
-          console.log(loadError);
-      });
+     const browser = this.iab.create(openurl,'_blank',{location:'yes', 'clearcache' :'yes', 'zoom':'no', 'enableViewportScale':'yes'});
+    browser.on('loaderror').subscribe(loadError => {
+          console.log("LOG: API Error");
+        console.log(loadError.message);
+        
+    });
+    browser.on('loadstop').subscribe((event) => {
+          console.log("LOG: API Response");
+          console.log(event.bubbles);
+          console.log(event.code);
+          // console.log(event.composed);
+          console.log(event.message);
+          browser.show();
+          // console.log(event.message);
+        });
    }
 
    openWebExternal(url){
@@ -219,6 +230,11 @@ export class HomePage {
       browser.on('loaderror').subscribe(loadError => {
           console.log(loadError);
       });
+      browser.on('loadstop').subscribe((event) => {
+          console.log("LOG: API Response");
+          console.log(event.code);
+          console.log(event.message);
+        });
    }
 
    showNotify(){
