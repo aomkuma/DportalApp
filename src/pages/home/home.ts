@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { NavController , NavParams} from 'ionic-angular';
+import { NavController , Platform,  NavParams, Nav} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { HTTP } from '@ionic-native/http';
@@ -7,6 +7,13 @@ import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Badge } from '@ionic-native/badge';
+// import { Geolocation } from '@ionic-native/geolocation';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { AppMinimize } from '@ionic-native/app-minimize';
+import { BackgroundMode } from '@ionic-native/background-mode';
+
+
+
 
 @Component({
   selector: 'page-home',
@@ -14,7 +21,10 @@ import { Badge } from '@ionic-native/badge';
 })
 export class HomePage {
   @ViewChild('a') myInput ;
+  @ViewChild(Nav) nav: Nav;
 	pageType : any=null;
+  beforePage : any = null;
+  loginStatus = '';
   errorMsg : string;
   Pin1 : number;
   Pin2 : number;
@@ -31,20 +41,37 @@ export class HomePage {
   UnseenNotify : any = 0;
   keyword : string = '';
   constructor(public navCtrl: NavController
+          , public platform : Platform
           , public navParams: NavParams 
           , public http:HTTP
           , private storage: Storage
           , private iab: InAppBrowser
           , private sanitizer:DomSanitizer
           , private badge: Badge
-          , private statusBar: StatusBar) {
+          // , private geolocation: Geolocation
+          , private push: Push
+          , private statusBar: StatusBar
+          , private appMinimize: AppMinimize
+          , private backgroundMode: BackgroundMode
+
+          ) {
+    this.loginStatus = sessionStorage.getItem('loginStatus');
+    console.log('loginStatus : ' + this.loginStatus);
+    if(this.loginStatus == null){
+      this.pageType = 'dashboard';
+    }else{
+
+    }
     // this.storage.remove('LoginObj');
+    this.backgroundMode.enable();
     this.statusBar.overlaysWebView(true);
     this.statusBar.show();
     this.statusBar.backgroundColorByHexString('#01a3a4');
 
-  	this.pageType = this.navParams.get("pageType");
-    console.log('PAGE TYPE = ' + this.pageType);
+    if(this.pageType == null){
+    	this.pageType = this.navParams.get("pageType");
+      console.log('PAGE TYPE = ' + this.pageType);
+    }
     // this.badge.set(10);
     // this.badge.increase(1);
     // console.log(this.pageType);
@@ -73,6 +100,59 @@ export class HomePage {
         
       }
     });
+
+    this.platform.ready().then(() => {
+      this.push.hasPermission()
+      .then((res: any) => {
+
+        if (res.isEnabled) {
+          console.log('We have permission to send push notifications');
+        } else {
+          console.log('We do not have permission to send push notifications');
+        }
+
+      });
+
+      // Create a channel (Android O and above). You'll need to provide the id, description and importance properties.
+      this.push.createChannel({
+       id: "aomtestchannel1",
+       description: "My first test channel",
+       // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
+       importance: 3
+      }).then(() => console.log('Channel created'));
+
+      // Delete a channel (Android O and above)
+      this.push.deleteChannel('testchannel1').then(() => console.log('Channel deleted'));
+
+      // Return a list of currently configured channels
+      this.push.listChannels().then((channels) => console.log('List of channels', channels))
+
+      // to initialize push notifications
+
+      const options: PushOptions = {
+         
+         ios: {
+             alert: 'true',
+             badge: true,
+             sound: 'false'
+         },
+         
+      };
+
+      const pushObject: PushObject = this.push.init(options);
+
+
+      pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
+
+      pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+
+      pushObject.on('error').subscribe(error => console.error('Error with Push plugin : ', error.message));
+
+      this.platform.registerBackButtonAction(() => {
+         this.appMinimize.minimize();
+      });
+
+    })
   }
 
 
@@ -95,11 +175,10 @@ export class HomePage {
             this.storage.set('LoginObj', JSON.stringify(this.LoginObj));
             this.setPageType('news');
             this.getNotifications();
-            // this.getNotifications();
-            // setInterval(function(){
-            //   console.log('get notify 2');
-            //   this.getNotifications();  
-            // }, 360000);
+
+            sessionStorage.setItem('loginStatus', 'Y');
+            this.loginStatus = sessionStorage.getItem('loginStatus');
+            console.log('result login status : ' + this.loginStatus);
           }
           // this.LoginPage = 'PIN-SETTING';
           this.errorMsg = '';
@@ -129,17 +208,15 @@ export class HomePage {
     this.http.setDataSerializer('json');
     this.http.post( this.webServerHost + '/dpo/public/login/pin/', {'obj_login':params}, {"Content-Type": "application/json"})
     .then(data => {
-      console.log(data.data);
+      // console.log(data.data);
       var res = JSON.parse(data.data);
       if(res.data.STATUS == 'OK'){
         this.LoginObj = res.data.DATA.UserData;
         this.setPageType('news');
         this.getNotifications();
-        // this.getNotifications();
-        // setInterval(function(){
-        //   console.log('get notify 3');
-        //   this.getNotifications();  
-        // }, 360000);
+        sessionStorage.setItem('loginStatus', 'Y');
+        this.loginStatus = sessionStorage.getItem('loginStatus');
+        console.log('result login status : ' + this.loginStatus);
 
         this.errorMsg = '';
       }else{
@@ -200,8 +277,9 @@ export class HomePage {
     // alert(this.pageType);
   }
 
-  openWeb(url)
+  openWeb(url, fab)
    {
+     fab.close();
      var openurl = this.webServerHost + '/mobile' + url + '//' + btoa((encodeURIComponent(JSON.stringify(this.LoginObj))));// + (JSON.stringify(this.LoginObj));
      console.log(openurl);
      // url = url + '/'+ (JSON.stringify(this.LoginObj));
@@ -222,8 +300,8 @@ export class HomePage {
         });
    }
 
-   openWebExternal(url){
-     
+   openWebExternal(url, fab){
+     fab.close();
      console.log(url);
      // url = url + '/'+ (JSON.stringify(this.LoginObj));
      const browser = this.iab.create(url,'_blank',{location:'no', 'clearcache' :'yes'});
@@ -251,7 +329,7 @@ export class HomePage {
      this.http.get( this.webServerHost + '/dpo/public/searchNews/' + encodeURIComponent(keyword), {}, {})
       .then(data => {
         var res = JSON.parse(data.data);
-        console.log(JSON.stringify(res));
+        // console.log(JSON.stringify(res));
         if(res.data.STATUS == 'OK'){
           this.SearchList = res.data.DATA.NewsList;
           this.setPageType('search');
@@ -279,13 +357,13 @@ export class HomePage {
      this.http.get( this.webServerHost + '/dpo/public/getNotificationList/'+regionID+'/'+groupID+'/'+userID+'/0', {}, {})
     .then(data => {
       var res = JSON.parse(data.data);
-      console.log(res);
+      // console.log(res);
       if(res.data.STATUS == 'OK'){
         this.NotificationList = res.data.DATA.NotificationList;
         this.UnseenNotify = res.data.DATA.totalNewNotifications;
         this.badge.set(this.UnseenNotify);
         // this.setPageType('search');
-        console.log(JSON.stringify(this.NotificationList));
+        // console.log(JSON.stringify(this.NotificationList));
         this.errorMsg = '';
       }else{
         this.errorMsg = 'ไม่พบการแจ้งเตือน';
@@ -299,6 +377,26 @@ export class HomePage {
 
     });
    }
+
+   backPage(){
+     this.pageType = this.beforePage;
+   }
+
+   openPage(pageType, fab) {
+     fab.close();
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    // if(pageType == 'MIS'){
+    //   this.openWeb(this.webServerHost + '/' + pageType);
+    // }else{
+    //   console.log(pageType);
+    //   this.nav.setRoot(HomePage, {pageType: pageType, 'loggedin':true});  
+    // }
+    if(pageType != this.beforePage){
+      this.beforePage = this.pageType;
+    }
+    this.pageType = pageType;
+  }
 
    goUnderContruction(){
      alert('Car Reservation Menu Is Unavailable At This Time ! ');

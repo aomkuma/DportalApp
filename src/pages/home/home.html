@@ -1,4 +1,4 @@
-<ion-header *ngIf="this.pageType == null"  style="background-color: #FFF; background-">
+<ion-header *ngIf="this.pageType == null"  style="background-color: #FFF;">
   <ion-navbar >
   </ion-navbar>
 </ion-header>
@@ -10,13 +10,23 @@
 
     <ion-title>
       <div style="display: inline-block;">
-        <input placeholder="ค้นหา.." style="width: 80%; border: 1px solid #ccc;float: left; height: 33px;" [(ngModel)]="keyword">
+        <input placeholder="ค้นหา.." style="width: 70%; border: 1px solid #ccc;float: left; height: 33px;" [(ngModel)]="keyword">
         <button style="float: left; background-color: #FFF; height: 33px; border-radius: 5px;" (tap)="searchNews(keyword)" [disabled]="keyword == ''">
           <ion-icon name="md-search" color="primary"></ion-icon>
         </button>
       </div>
     </ion-title>
     <ion-buttons end>
+      <button ion-button icon-only (tap)="pageType = 'dashboard'" style="font-weight: bolder;">
+        <ion-icon name="home"  color="light" ></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end *ngIf="loginStatus == null">
+      <button ion-button icon-only (tap)="pageType = 'login'; LoginPage = 'PIN-LOGIN'" style="color:red; font-weight: bolder;">
+        <ion-icon name="md-log-in"  color="light" ></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end *ngIf="loginStatus !== null">
       <button ion-button icon-only (tap)="showNotify()" style="color:red; font-weight: bolder;">
         <ion-icon name="md-notifications"  color="light" ></ion-icon> {{UnseenNotify}}
       </button>
@@ -33,13 +43,14 @@
   -->
   <div *ngIf="this.pageType != null" style=" height: 100%;">
     <ion-row responsive-sm responsive-xs>
-      <ion-col style="text-align: center;">
-
+      <ion-col >
+        <page-dashboard *ngIf="this.pageType == 'dashboard'"></page-dashboard>
         <page-user-profile *ngIf="this.pageType == 'user_profile'"></page-user-profile>
         <page-news *ngIf="this.pageType == 'news'"></page-news>
         <page-link *ngIf="this.pageType == 'link'"></page-link>
         <page-in-phone-book *ngIf="this.pageType == 'telephonebook_internal'"></page-in-phone-book>
         <page-ex-phone-book *ngIf="this.pageType == 'telephonebook_external'"></page-ex-phone-book>
+        <page-repair *ngIf="this.pageType == 'repair'"></page-repair>
 
       </ion-col>
     </ion-row>
@@ -69,7 +80,7 @@
     </ion-row>
     
   </div>
-  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'PIN-SETTING'">
+  <div style="padding-top: 0%;" *ngIf="this.pageType == 'login' && LoginPage == 'PIN-SETTING'">
     <ion-row responsive-sm responsive-xs>
       <ion-col style="text-align: center;">
         <img src="assets/imgs/user.png" style="height:100%;">
@@ -96,7 +107,7 @@
     </ion-row>
   </div>
 
-  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'PIN-LOGIN'">
+  <div style="padding-top: 0%;" *ngIf="this.pageType == 'login' && LoginPage == 'PIN-LOGIN'">
     <ion-row responsive-sm responsive-xs>
       <ion-col style="text-align: center;">
         <img src="assets/imgs/user.png" style="height:100%;">
@@ -134,7 +145,7 @@
     </ion-row>
   </div>
 
-  <div style="padding-top: 25%;" *ngIf="this.pageType == null && LoginPage == 'LOGIN'">
+  <div style="padding-top: 0%;" *ngIf="this.pageType == 'login' && LoginPage == 'LOGIN'">
     <ion-row responsive-sm responsive-xs>
       <ion-col style="text-align: center;">
         <img src="assets/imgs/user.png" style="height:100%;">
@@ -184,9 +195,55 @@
       </ion-col>
     </ion-row>
   </ion-content>
-
+  <ion-fab bottom left #fab style=" bottom: 3%;" *ngIf="beforePage != null">
+    <button ion-fab color="light" (tap)="backPage()">
+        <ion-icon style="" [color]="light" [name]="'md-arrow-back'" item-end></ion-icon>
+    </button>
+         
+  </ion-fab>
+  <ion-fab bottom right #fab style=" bottom: 3%;">
+     <button ion-fab color="secondary">
+        <ion-icon style="" [color]="light" [name]="'aperture'" item-end></ion-icon>
+      </button>
+     <ion-fab-list  side="top">
+      <ion-row>
+        <ion-col>
+           <button ion-fab (tap)="openPage('news', fab)" color="light">
+            <ion-icon [name]="'paper'" item-end></ion-icon>
+            
+           </button>
+      </ion-col>
+      <ion-col>
+           <button ion-fab (tap)="openPage('link', fab)" color="dark">
+            <ion-icon [name]="'link'" item-end></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col>
+           <button ion-fab (tap)="openWeb('/#/roomconference', fab)" color="danger">
+            <ion-icon [name]="'home'" item-end></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col>
+           <button ion-fab (tap)="openWeb('/#/vehicles/-1', fab)" color="primary">
+            <ion-icon [name]="'car'" item-end></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col>
+           <button ion-fab (tap)="openWeb('/#/repair/', fab)" color="light">
+            <ion-icon [name]="'build'" item-end></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col>
+           <button ion-fab (tap)="openWebExternal('https://LOMS.dpo.go.th', fab)" color="dark">
+            <ion-icon [name]="'man'" item-end></ion-icon>
+            <ion-icon [name]="'woman'" item-end></ion-icon>
+           </button>
+      </ion-col>
+    </ion-row>
+     </ion-fab-list>
+   </ion-fab>
 </ion-content>
-<ion-footer style="height:100px; text-align: center; background-color: #FFF;" *ngIf="this.pageType != null">
+<ion-footer style="height:100px; text-align: center; background-color: #FFF;" *ngIf="false"><!--this.pageType != null-->
   <ion-row responsive-sm responsive-xs>
     <ion-col>
       <img src="assets/imgs/room-icon.png" style="height:60%;" (tap)="openWeb('/#/roomconference')">
@@ -199,7 +256,7 @@
       จองรถ
     </ion-col>
     <ion-col>
-      <img src="assets/imgs/repair-icon.png" style="height:60%;" (tap)="openWeb('/#/repair/')">
+      <img src="assets/imgs/repair-icon.png" style="height:60%;" (tap)="openWeb('/#/repair/')"><!-- (tap)="openPage('repair')" -->
       <br>
       แจ้งซ่อม
     </ion-col>

@@ -1,0 +1,55 @@
+<div style="height: 600px;">
+<ion-content padding>
+	<ion-row>
+		<ion-col>
+			
+		</ion-col>
+	</ion-row>
+	<ion-row>
+      <ion-col style="text-align: left;">
+    	<h4><span style="color: #01a3a4;"><u>ข่าว</u></span><u>ประชาสัมพันธ์</u></h4>
+    	<ion-scroll scrollX="true" direction="x" style="min-height: 250px; ">
+	    	<ion-card *ngFor="let data of NewsList" style="width: 260px;">
+		      <ion-card-title>
+		          <b><p [innerHtml]="data.NewsTitle">
+		          </p>
+		        </b>
+		      </ion-card-title>
+		      <img src="{{webServerHost + '/' + data.NewsPicture}}" style="height: 170px;" />
+		      
+		    </ion-card>
+		</ion-scroll>
+      </ion-col>
+    </ion-row>
+	<hr>
+    <ion-row>
+      <ion-col style="text-align: left;">
+    	<h4><span style="color: #01a3a4;"><u>ลิ้งค์</u></span><u>ภายนอก</u></h4>
+    	<ion-scroll scrollX="true" direction="x" style="min-height: 80px; ">
+	    	<ion-card *ngFor="let data of LinkList" class="link-card" style="text-align:center; width: 100px;">  
+	    		<ion-row>
+			        <ion-col col-2></ion-col>
+			        <ion-col col-8>
+			          <img src="{{webServerHost + '/' + data.LinkIcon}}" style="height: 55px; width: auto; text-align: center;" (tap)="openWeb(data.LinkUrl)" />
+			        </ion-col>
+			        <ion-col col-2></ion-col>
+			      </ion-row>
+	      		
+		      
+		    </ion-card>
+		</ion-scroll>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+		<ion-col style="text-align: center; top: 20px;">
+			<ion-col col-2></ion-col>
+	        <ion-col col-8>
+	          <img src="../assets/imgs/icon.png" style="height: 120px;" />
+	        </ion-col>
+	        <ion-col col-2></ion-col>
+		</ion-col>
+	</ion-row>
+	
+</ion-content>
+</div>

@@ -283,6 +283,54 @@ module.exports = [
     "clobbers": [
       "call"
     ]
+  },
+  {
+    "id": "cordova-plugin-geolocation.geolocation",
+    "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+    "pluginId": "cordova-plugin-geolocation",
+    "clobbers": [
+      "navigator.geolocation"
+    ]
+  },
+  {
+    "id": "cordova-plugin-geolocation.PositionError",
+    "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+    "pluginId": "cordova-plugin-geolocation",
+    "runs": true
+  },
+  {
+    "id": "cordova-plugin-datepicker.DatePicker",
+    "file": "plugins/cordova-plugin-datepicker/www/android/DatePicker.js",
+    "pluginId": "cordova-plugin-datepicker",
+    "clobbers": [
+      "datePicker"
+    ]
+  },
+  {
+    "id": "cordova-plugin-appminimize.AppMinimize",
+    "file": "plugins/cordova-plugin-appminimize/www/AppMinimize.js",
+    "pluginId": "cordova-plugin-appminimize",
+    "clobbers": [
+      "cordova.plugins.appMinimize"
+    ]
+  },
+  {
+    "id": "cordova-plugin-document-viewer.SitewaertsDocumentViewer",
+    "file": "plugins/cordova-plugin-document-viewer/www/sitewaertsdocumentviewer.js",
+    "pluginId": "cordova-plugin-document-viewer",
+    "clobbers": [
+      "cordova.plugins.SitewaertsDocumentViewer",
+      "SitewaertsDocumentViewer"
+    ]
+  },
+  {
+    "id": "cordova-plugin-background-mode.BackgroundMode",
+    "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
+    "pluginId": "cordova-plugin-background-mode",
+    "clobbers": [
+      "cordova.plugins.backgroundMode",
+      "plugin.backgroundMode"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -299,7 +347,12 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.5.2",
-  "mx.ferreyra.callnumber": "0.0.2"
+  "mx.ferreyra.callnumber": "0.0.2",
+  "cordova-plugin-geolocation": "4.0.1",
+  "cordova-plugin-datepicker": "0.9.3",
+  "cordova-plugin-appminimize": "1.0.1",
+  "cordova-plugin-document-viewer": "0.9.10",
+  "cordova-plugin-background-mode": "0.7.2"
 };
 // BOTTOM OF METADATA
 });

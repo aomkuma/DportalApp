@@ -1,18 +1,320 @@
-<!--
-  Generated template for the CarPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+<!--<div>
+	<ion-row responsive-sm responsive-xs>
+      <ion-col style="text-align: center;">
+    	<h4>รายละเอียดการจองพาหนะ</h4>
+    	<br>
+      </ion-col>
+    </ion-row>
+	<div class="row">
+		<div class="col-lg-5" *ngIf="CarDetail != undefined">
+	        <div class="row form-group">
+	            <div class="col-lg-12">
+	    		  <img src="{{CarDetail.CarPicture}}" border="0" style=" border:#999 1px solid; max-width: 100%;">
+	            </div>
+	        </div>
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">อ.ส.ค.พื้นท ี่ : </label>
+	            <label class="col-lg-8 form-control-static text-thin">{{ReserveCarInfo.RegionName}}</label>
+	        </div>
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">ประเภทรถ : </label>
+	            <label class="col-lg-8 form-control-static text-thin">{{CarDetail.CarType}}</label>
+	        </div>
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">ยี่ห้อ : </label>
+	            <label class="col-lg-3 form-control-static text-thin">{{CarDetail.Brand}}</label>
+	            <label class="col-lg-1 form-control-static">รุ่น</label>
+	            <label class="col-lg-4 form-control-static text-thin">{{CarDetail.Model}}</label>
+	        </div>
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">ทะเบียนรถ : </label>
+	            <label class="col-lg-8 form-control-static text-thin">{{CarDetail.License }}&nbsp;{{CarDetail.LicenseProvinceName }}</label>
+	        </div>
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">จำนวนที่นั่ง : </label>
+	            <label class="col-lg-8 form-control-static text-thin">{{CarDetail.SeatAmount}}</label>
+	        </div>
+	        <hr />
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">เจ้าหน้าที่ดูแลห้อง : </label>
+	            <label class="col-lg-8 form-control-static text-thin">{{CarDetail.FirstName + ' ' + CarDetail.LastName}}</label>
+	        </div>
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">หมายเลขโทรศัพท์ : </label>
+	            <label class="col-lg-8 form-control-static text-thin">{{CarDetail.Mobile}}</label>
+	        </div>
+	        <div class="row ">
+	            <label class="col-lg-4 form-control-static">E-mail : </label>
+	            <label class="col-lg-8 form-control-static text-thin">{{CarDetail.Email}}</label>
+	        </div>
+	        
+		</div>
+		<div class="col-lg-7">
+	        <fieldset ng-disabled="currentUser.UserID != ReserveCarInfo.CreateBy" ng-form='reserve_form'>
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <h4><b>ผู้ขอจอง : </b>{{ RequestUser.FirstName + ' ' + RequestUser.LastName }}</h4>
+	                    <h4><b>ผู้ตรวจสอบ : </b>{{ VerifyUser.FirstName + ' ' + VerifyUser.LastName }}</h4>
+	                </div>
+	             </div>
+	            <div class="row form-group">
+	                <label class="col-lg-4 form-control-static" for="RegionName"><h3>ข้อมูลการจอง</h3></label>
+	            </div>
+	            <div class="row form-group">
+	                <label class="col-lg-3 form-control-static" for="RegionName">พื้นท ี่</label>
+	                <div class="col-lg-8">
+	                    <select class="form-control" [(ngModel)]="ReserveCarInfo.RegionID" ng-options="region.RegionID as region.RegionName for region in RegionList">
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="row form-group">
+	                <label class="col-lg-3 form-control-static" for="RegionName">จังหวัดปลายทาง</label>
+	                <div class="col-lg-8">
+	                    <select class="form-control" required="true" [(ngModel)]="ReserveCarInfo.ProvinceID" ng-options="province.ProvinceID as province.ProvinceName for province in ProvinceList" [ngClass]="{required_field:ReserveCarInfo.ProvinceID==''}">
+	                        <option value="">กรุณาเลือก</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="row form-group">
+	                <label class="col-lg-3 form-control-static" for="RegionName">สถานที่ปลายทาง</label>
+	                <div class="col-lg-8"><input class="form-control" required="true" [(ngModel)]="ReserveCarInfo.Destination" [ngClass]="{required_field:ReserveCarInfo.Destination==''}" /></div>
+	            </div>
+	            <div class="row form-group">
+	                <label class="col-lg-3 form-control-static" for="RegionName">วัน/เวลา เดินทางไป </label>
+	                <div class="col-lg-5">
+	                    <p class="input-group">
+	                      <input type="text" readonly="true" class="form-control" uib-datepicker-popup="yyyy-MM-dd" [(ngModel)]="ReserveCarInfo.StartDate" is-open="popup1.opened" datepicker-options="dateOptions1" ng-required="true" close-text="Close" [ngClass]="{required_field:ReserveCarInfo.StartDate==null}" ng-disabled="(ReserveCarInfo.ReserveStatus == 'Approve' || ReserveCarInfo.ReserveStatus == 'Reject')" ng-blur="checkSelectDateTime(ReserveCarInfo.StartDate, ReserveCarInfo.StartTime, ReserveCarInfo.EndDate, ReserveCarInfo.EndTime)" ng-change="checkBetweenDate()" />
+	                      <span class="input-group-btn">
+	                        <button type="button" class="btn btn-default" (tap)="open1()" ng-disabled="(ReserveCarInfo.ReserveStatus == 'Approve' || ReserveCarInfo.ReserveStatus == 'Reject')" [ngClass]="{required_field:ReserveCarInfo.StartDate==null}"><i class="glyphicon glyphicon-calendar"></i></button>
+	                      </span>
+	                    </p>
+	                </div>
+	                <div class="col-lg-3">
+	                    <select class="form-control" required="true" [(ngModel)]="ReserveCarInfo.StartTime" valuedefault="{{ReserveCarInfo.StartTime}}" ng-disabled="(ReserveCarInfo.ReserveStatus == 'Approve' || ReserveCarInfo.ReserveStatus == 'Reject')" [ngClass]="{required_field:ReserveCarInfo.StartTime=='' || ReserveCarInfo.StartTime == null}" ng-blur="checkSelectDateTime(ReserveCarInfo.StartDate, ReserveCarInfo.StartTime, ReserveCarInfo.EndDate, ReserveCarInfo.EndTime)">
+	                        <option value=""> กรุณาเลือก </option>
+	                        <option ng-repeat="time in StartTimeList" value="{{time}}">{{time}}</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="row form-group">
+	                <label class="col-lg-3 form-control-static" for="RegionName">วัน/เวลา เดินทางกลับ</label>
+	                <div class="col-lg-5">
+	                    <p class="input-group">
+	                      <input type="text" readonly="true" class="form-control" uib-datepicker-popup="yyyy-MM-dd" [(ngModel)]="ReserveCarInfo.EndDate" is-open="popup2.opened" datepicker-options="dateOptions2" ng-required="true" close-text="Close" [ngClass]="{required_field:ReserveCarInfo.EndDate==null}" ng-disabled="(ReserveCarInfo.ReserveStatus == 'Approve' || ReserveCarInfo.ReserveStatus == 'Reject')" ng-blur="checkSelectDateTime(ReserveCarInfo.StartDate, ReserveCarInfo.StartTime, ReserveCarInfo.EndDate, ReserveCarInfo.EndTime)" />
+	                      <span class="input-group-btn">
+	                        <button type="button" class="btn btn-default" (tap)="open2()" ng-disabled="(ReserveCarInfo.ReserveStatus == 'Approve' || ReserveCarInfo.ReserveStatus == 'Reject')" [ngClass]="{required_field:ReserveCarInfo.EndDate==null}"><i class="glyphicon glyphicon-calendar"></i></button>
+	                      </span>
+	                    </p>
+	                </div>
+	                <div class="col-lg-3">
+	                    <select class="form-control" required="true"  [(ngModel)]="ReserveCarInfo.EndTime" ng-disabled="(ReserveCarInfo.ReserveStatus == 'Approve' || ReserveCarInfo.ReserveStatus == 'Reject')" [ngClass]="{required_field:ReserveCarInfo.EndTime=='' || ReserveCarInfo.EndTime==null}" ng-blur="checkSelectDateTime(ReserveCarInfo.StartDate, ReserveCarInfo.StartTime, ReserveCarInfo.EndDate, ReserveCarInfo.EndTime)">
+	                        <option value=""> กรุณาเลือก </option>
+	                        <option ng-repeat="time in EndTimeList" value="{{time}}">{{time}}</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="row form-group">
+	                <label class="col-lg-3 form-control-static" for="RegionName">ภารกิจ</label>
+	                <div class="col-lg-8"><input class="form-control" [(ngModel)]="ReserveCarInfo.Mission" [ngClass]="{'required_field':ReserveCarInfo.Mission==''}" required="true" /></div>
+	            </div>
+	            <div class="row form-group">
+	                <label class="col-lg-3 form-control-static" for="RegionName">หมายเหตุ</label>
+	                <div class="col-lg-8"><textarea class="form-control" [(ngModel)]="ReserveCarInfo.Remark" ></textarea></div>
+	            </div>
+	            
+	            <hr />        
+	            <div class="row form-group" >
+	                <div class="col-lg-12">
+	                    <div class="panel panel-default">
+	                      <div class="panel-heading"><h4><b>รายชื่อผู้ร่วมเดินทาง</b></h4></div>
+	                      <div class="panel-body">
+	                        <div class="row form-group">
+	                             <label class="col-lg-3 form-control-static">พนักงานขับรถ</label>
+	                            <div class="col-lg-8">
+	                                <div class="btn-group" *ngIf="currentUser.UserID == ReserveCarInfo.CreateBy">
+	                                    <label class="btn btn-info btn-radiobox" [(ngModel)]="ReserveCarInfo.DriverType" uib-btn-radio="'Y'" (tap)="setDriver(ReserveCarInfo.DriverType)">ต้องการ</label>
+	                                    <label class="btn btn-info btn-radiobox" [(ngModel)]="ReserveCarInfo.DriverType" uib-btn-radio="'N'" (tap)="setDriver(ReserveCarInfo.DriverType)">ไม่ต้องการ</label>
+	                                </div>
+	                                <label class="form-control-static" *ngIf="currentUser.UserID != ReserveCarInfo.CreateBy">
+	                                {{ DriverType=='Y'?'ต้องการ':'ไม่ต้องการ' }}
+	                                </label>
+	                            </div>
+	                        </div>
+	                        <div class="row form-group">
+	                            <label class="col-lg-3 form-control-static">จำนวนผู้เดินทาง</label>
+	                            <div class="col-lg-3">
+	                                <select class="form-control" required="true" [(ngModel)]="ReserveCarInfo.TravelerAmount" ng-options="seatAmount.SeatAmount as seatAmount.SeatAmount for seatAmount in SeatAmountList" [ngClass]="{'required_field': ReserveCarInfo.TravelerAmount == null || ReserveCarInfo.TravelerAmount == '0'}" ng-change="checkTraveller()">
+	                                    <option value="">กรุณาเลือก</option>
+	                                </select>
+	                            </div>
+	                            <label class="col-lg-1 form-control-static">คน</label>
+	                        </div>
+	                        <div class="row form-group">
+	                            <label class="col-lg-3 form-control-static">ชื่อ - สกุล </label>
+	                            <div class="col-lg-8"><input class="form-control" [(ngModel)]="Traveller.Name" uib-typeahead="user for user in searchUserAutoComplete($viewValue, 'USER') | limitTo:20" typeahead-on-select="autocompleteUserSelected($item, $model, $label)" ng-paste="$event.preventDefault()" /></div>
+	                        </div>
+	                        <div *ngIf="TravellerList.length > 0">
+	                            <div class="row">
+	                                <div ng-repeat="traveller in TravellerList" class="col-lg-3 alert alert-info alert-dismissible" role="alert">
+	                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (tap)="deleteTraveller($index, traveller.TravellerID)" *ngIf="currentUser.UserID == ReserveCarInfo.CreateBy"><span aria-hidden="true">&times;</span></button>
+	                                  {{traveller.FirstName}}&nbsp;{{traveller.LastName}}
+	                                </div>
+	                            </div>
+	                        </div>
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
 
-  <ion-navbar>
-    <ion-title>Car</ion-title>
-  </ion-navbar>
+	            <div class="row form-group" *ngIf="currentUser.UserID != ReserveCarInfo.AdminID && (ReserveCarInfo.ReserveStatus == 'Approve' || ReserveCarInfo.ReserveStatus == 'Reject')">
+	                <div class="col-lg-12">
+	                    <div class="panel panel-success">
+	                      <div class="panel-heading"><h4><b>สถานะการอนุมัติ</b></h4></div>
+	                      <div class="panel-body">
+	                        <div class="row form-group">
+	                            
+	                            <div class="col-lg-4">
+	                                <div class=" status-{{ReserveCarInfo.ReserveStatus}}">
+	                                {{ ReserveCarInfo.ReserveStatus==null||ReserveCarInfo.ReserveStatus=='Request'?'อยู่ระหว่างการพิจารณา':(ReserveCarInfo.ReserveStatus == 'Approve' ?'อนุมัติ':'ไม่อนุมัติ') }}</div>
+	                            </div>
+	                        </div>
+	                        <hr>
+	                        <div class="row form-group" *ngIf="ReserveCarInfo.ReserveStatus == 'Approve'">
+	                            
+	                            <div class="col-lg-12" *ngIf="ReserveCarInfo.DriverType == 'Internal'">
+	                                <div class="row form-group">
+	                                    <label class="col-lg-4 form-control-static">
+	                                        พนักงานขับรถ
+	                                    </label>
+	                                    <div class="col-lg-8">
+	                                        <input class="form-control" [(ngModel)]="InternalDriver.Name"  readonly="true" />
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-lg-12" *ngIf="ReserveCarInfo.DriverType == 'External'">
+	                                <div class="row form-group">
+	                                    <label class="col-lg-4 form-control-static">
+	                                        พนักงานขับรถสัญญาจ้าง
+	                                    </label>
+	                                    <div class="col-lg-8">
+	                                        <input class="form-control" [(ngModel)]="ExternalDriver.DriverName"   readonly="true" />
+	                                    </div>
+	                                </div>
+	                                <div class="row form-group">
+	                                    <label class="col-lg-4 form-control-static">
+	                                        หมายเลขโทรศัพท์
+	                                    </label>
+	                                    <div class="col-lg-8">
+	                                        <input class="form-control" [(ngModel)]="ExternalDriver.Mobile"  readonly="true"  />
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
 
-</ion-header>
+	                        <div class="row form-group" *ngIf="ReserveCarInfo.ReserveStatus == 'Reject'">
+	                            <div class="col-lg-12">
+	                                <textarea readonly="true" class="form-control" [(ngModel)]="ReserveCarInfo.AdminComment" ng-required="ReserveCarInfo.ReserveStatus=='Reject' && (ReserveCarInfo.AdminComment=='' || ReserveCarInfo.AdminComment==null)"  [ngClass]="{required_field:(ReserveCarInfo.ReserveStatus=='Reject' && (ReserveCarInfo.AdminComment=='' || ReserveCarInfo.AdminComment == null))}"  required="true" placeholder="ระบุเหตุผล"></textarea> 
+	                            </div>
+	                        </div>
 
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
+	            
+	            </fieldset>
+	        
+	            <div ng-form='verify_form' class="row form-group" *ngIf="ReserveCarInfo.AdminID == currentUser.UserID">
+	            <div class="col-lg-12">
+	                <div class="panel panel-success">
+	                  <div class="panel-heading"><h4><b>สถานะการอนุมัติ</b></h4></div>
+	                  <div class="panel-body">
+	                    <div class="row form-group">
+	                        <div class="col-lg-4">
+	                            <div class="btn-group">
+	                                <label class="btn btn-success btn-radiobox" [(ngModel)]="ReserveCarInfo.ReserveStatus" uib-btn-radio="'Approve'" (tap)="checkReserveStatus('Approve')">อนุมัติ</label>
+	                                <label class="btn btn-danger btn-radiobox" [(ngModel)]="ReserveCarInfo.ReserveStatus" uib-btn-radio="'Reject'" (tap)="checkReserveStatus('Reject')">ไม่อนุมัติ</label>
+	                            </div>
+	                        </div>
+	                        <div class="col-lg-4">
+	                            <div class=" status-{{ReserveCarInfo.ReserveStatus}}">
+	                            {{ ReserveCarInfo.ReserveStatus==''||ReserveCarInfo.ReserveStatus=='Request'?'อยู่ระหว่างการพิจารณา':(ReserveCarInfo.ReserveStatus == 'Approve' ?'อนุมัติ':'ไม่อนุมัติ') }}</div>
+	                        </div>
+	                    </div>
+	                    <hr>
+	                    <div class="row form-group" *ngIf="ReserveCarInfo.ReserveStatus == 'Approve' && (DriverType == 'Y' || ReserveCarInfo.DriverType == 'Internal' || ReserveCarInfo.DriverType == 'External')">
+	                        <div class="col-lg-12">
+	                            <div class="btn-group">
+	                                <label class="btn btn-info btn-radiobox" [(ngModel)]="ReserveCarInfo.DriverType" uib-btn-radio="'Internal'"  (tap)="checkDriverType('Internal')">พนักงานขับรถ</label>
+	                                <label class="btn btn-info btn-radiobox" [(ngModel)]="ReserveCarInfo.DriverType" uib-btn-radio="'External'" (tap)="checkDriverType('External')">พนักงานขับรถสัญญาจ้าง</label>
+	                            </div>
 
-<ion-content padding>
+	                        </div>
+	                        <br>&nbsp;<br>
+	                        <div class="col-lg-12" *ngIf="ReserveCarInfo.DriverType == 'Internal'">
+	                            <div class="row form-group">
+	                                <label class="col-lg-4 form-control-static">
+	                                    พนักงานขับรถ
+	                                </label>
+	                                <div class="col-lg-8">
+	                                    <input class="form-control" [(ngModel)]="InternalDriver.Name" uib-typeahead="user for user in searchDriverAutoComplete($viewValue, 'USER') | limitTo:20" typeahead-on-select="autocompleteDriverSelected($item, $model, $label)" [ngClass]="{'required_field':checkInternalDriverCondition()}" ng-required="(ReserveCarInfo.DriverType == 'Internal')" ng-paste="$event.preventDefault();" />
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-lg-12" *ngIf="ReserveCarInfo.DriverType == 'External'">
+	                            <div class="row form-group">
+	                                <label class="col-lg-4 form-control-static">
+	                                    พนักงานขับรถสัญญาจ้าง
+	                                </label>
+	                                <div class="col-lg-8">
+	                                    <input class="form-control" [(ngModel)]="ExternalDriver.DriverName"  [ngClass]="{'required_field':ReserveCarInfo.DriverType == 'External' && (ExternalDriver.DriverName == null || ExternalDriver.DriverName == '')}" ng-required="(ReserveCarInfo.DriverType == 'External')" />
+	                                </div>
+	                            </div>
+	                            <div class="row form-group">
+	                                <label class="col-lg-4 form-control-static">
+	                                    หมายเลขโทรศัพท์
+	                                </label>
+	                                <div class="col-lg-8">
+	                                    <input class="form-control" [(ngModel)]="ExternalDriver.Mobile" [ngClass]="{'required_field':ReserveCarInfo.DriverType == 'External' && (ExternalDriver.Mobile == '' || ExternalDriver.Mobile == null)}" ui-mask="999-999-9999" model-view-value="true"  ui-mask-placeholder ui-mask-placeholder-char="" ng-required="(ReserveCarInfo.DriverType == 'External')"  />
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
 
-</ion-content>
+	                    <div class="row form-group" *ngIf="ReserveCarInfo.ReserveStatus == 'Reject'">
+	                        <div class="col-lg-12">
+	                            <textarea class="form-control" [(ngModel)]="ReserveCarInfo.AdminComment" ng-required="ReserveCarInfo.ReserveStatus=='Reject' && (ReserveCarInfo.AdminComment=='' || ReserveCarInfo.AdminComment==null)"  [ngClass]="{required_field:(ReserveCarInfo.ReserveStatus=='Reject' && (ReserveCarInfo.AdminComment=='' || ReserveCarInfo.AdminComment == null))}" placeholder="ระบุเหตุผล"></textarea> 
+	                            
+	                        </div>
+	                    </div>
+
+	                    <div class="row form-group">
+	                        <div class="col-lg-12 obj_center">
+	                            <a role="button" class="btn btn-default" href="#/"><span class="glyphicon glyphicon-arrow-left"></span> กลับไปหน้าแรก </a>
+	                            <button class="btn btn-primary" (tap)="adminUpdateCarStatus()" ng-disabled="(verify_form.$invalid) || (ReserveCarInfo.ReserveStatus == 'Approve' && ReserveCarInfo.CarID == 0)" *ngIf="ReserveCarInfo.ReserveStatus == 'Approve'"><span class="glyphicon glyphicon-floppy-disk"></span> บันทึกข้อมูล </button>
+	                            <button class="btn btn-primary" (tap)="adminUpdateCarStatus()" ng-disabled="(ReserveCarInfo.AdminComment=='' || ReserveCarInfo.AdminComment==null)" *ngIf="ReserveCarInfo.ReserveStatus == 'Reject'"><span class="glyphicon glyphicon-floppy-disk"></span> บันทึกข้อมูล </button>
+	                            <button class="btn btn-warning" *ngIf="ReserveCarInfo.ReserveStatus == 'Approve'" (tap)="showSelectCar()"><span class="glyphicon glyphicon-shopping-cart"></span> เลือกรถ</button>
+	                            <button type="button" class="btn btn-info" (tap)="printReserveCar()" *ngIf="ReserveCarInfo.ReserveStatus == 'Approve'"><span class="glyphicon glyphicon-ok"></span> พิมพ์ใบจอง</button>
+	                        </div>
+	                    </div>
+	                  </div>
+	                </div>
+	            </div>
+	        </div>
+	        </div>
+	        <div class="row form-group"  *ngIf="currentUser.UserID == ReserveCarInfo.CreateBy && ReserveCarInfo.ReserveStatus == ''">
+	            <div class="col-lg-12 obj_center">
+	                <a role="button" class="btn btn-default" href="#/"><span class="glyphicon glyphicon-arrow-left"></span> กลับไปหน้าแรก </a>
+	                <button class="btn btn-primary" (tap)="requestReserveCar()" ng-disabled="(!reserve_form.$valid) || ReserveCarInfo.TravelerAmount == '0'" *ngIf="ReserveCarInfo.ReserveCarID == ''"><span class="glyphicon glyphicon-floppy-disk"></span> บันทึกข้อมูล </button>
+	                <button type="button" class="btn btn-danger" (tap)="cancelReserveCar(ReserveCarInfo.ReserveCarID)" *ngIf="ReserveCarInfo.ReserveCarID != ''"><span class="glyphicon glyphicon-remove"></span> ยกเลิกการจองพาหนะ</button>
+	                <button type="button" class="btn btn-primary" (tap)="saveDraft()" *ngIf="ReserveCarInfo.ReserveCarID != '' && ReserveCarInfo.ReserveStatus == null"><span class="glyphicon glyphicon-ok"></span> บันทึก</button>
+	                <button type="button" class="btn btn-info" (tap)="printReserveCar()" *ngIf="ReserveCarInfo.ReserveStatus == 'Approve'"><span class="glyphicon glyphicon-ok"></span> พิมพ์ใบจอง</button>
+	            </div>
+	        </div>
+
+	        
+
+	    </div>
+	    
+	</div>

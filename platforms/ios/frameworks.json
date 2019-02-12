@@ -3,5 +3,12 @@
     "SystemConfiguration.framework": 1,
     "SafariServices.framework": 1,
     "WebKit.framework": 1,
-    "libz.tbd": 1
+    "libz.tbd": 1,
+    "PushKit.framework": 1,
+    "CoreLocation.framework": 1,
+    "UIKit.framework": 1,
+    "Foundation.framework": 1,
+    "QuartzCore.framework": 1,
+    "ImageIO.framework": 1,
+    "MessageUI.framework": 1
 }

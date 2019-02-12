@@ -25703,6 +25703,27 @@ ion-navbar.toolbar {
   color: #fff;
 }
 
+page-dashboard .scroll-zoom-wrapper {
+  white-space: nowrap;
+}
+
+page-dashboard ion-card {
+  display: inline-block;
+}
+
+page-dashboard ion-card .link-card {
+  width: 60px;
+  text-align: center;
+}
+
+page-dashboard ion-scroll {
+  height: auto;
+}
+
+page-dashboard ion-scroll .scroll-content {
+  padding: 0px !important;
+}
+
 page-home .toolbar-background {
   background-image: url("../../../assets/imgs/bg_page_2.png");
   background-color: #01a3a4;

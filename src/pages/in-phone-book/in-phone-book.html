@@ -5,7 +5,17 @@
     	<br>
       </ion-col>
     </ion-row>
-    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >
+    <ion-list>
+      <ion-item *ngFor="let data of PhoneList">
+        <ion-thumbnail item-start>
+          <ion-icon name="md-person"></ion-icon>
+        </ion-thumbnail>
+        <h2>{{data.FirstName}} {{data.LastName}}</h2>
+        <p><span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span></p>
+        
+      </ion-item>
+    </ion-list>
+    <!-- <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >
       <ion-col style="text-align: left;">
       	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}
       	<br>
@@ -14,7 +24,7 @@
     	<br>
     	<hr>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     
 	
 </div>

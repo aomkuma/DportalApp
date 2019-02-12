@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 
 /**
  * Generated class for the NewsPage page.
@@ -23,7 +24,8 @@ export class NewsPage {
 	NewsList :any = [];
 	constructor(public navCtrl: NavController, public navParams: NavParams
 			, public http:HTTP
-	      	, private storage: Storage) {
+	      	, private storage: Storage
+	      	, private document: DocumentViewer) {
 		storage.get('LoginObj').then((val) => {
 			if(val != null && val != ''){
         		this.LoginObj = JSON.parse(val);
@@ -51,6 +53,14 @@ export class NewsPage {
 			console.log(error.headers);
 
 		});
+	}
+
+	viewPDF(url){
+		const options: DocumentViewerOptions = {
+		  title: 'องค์การส่งเสริมกิจการโคนมแห่งประเทศไทย : เอกสารแนบ'
+		}
+
+		this.document.viewDocument(url, 'application/pdf', options);
 	}
 
 	convertDateToFullThaiDateIgnoreTime(date){

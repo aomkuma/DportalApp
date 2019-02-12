@@ -12,16 +12,34 @@
     	<br>
       </ion-col>
     </ion-row>
-    <ion-row responsive-sm responsive-xs *ngFor="let data of NewsList" >
+    <!-- <ion-row responsive-sm responsive-xs *ngFor="let data of NewsList" >
       <ion-col style="text-align: center;">
       	<img src="{{webServerHost + '/' + data.NewsPicture}}">
-    	<div [innerHtml]="data.NewsTitle"></div>
-      <span style="text-align: right; color:#999;">{{convertDateToFullThaiDateIgnoreTime(data.NewsDateTime)}}</span>
-    	<br>
-    	<hr>
+      	<div [innerHtml]="data.NewsTitle"></div>
+        <span style="text-align: right; color:#999;"><ion-icon name="md-calendar"></ion-icon> {{convertDateToFullThaiDateIgnoreTime(data.NewsDateTime)}}</span>
+        <ion-badge item-end><ion-icon name="eye"></ion-icon> {{data.VisitCount==''?0:data.VisitCount}}</ion-badge>
+      	<br>
+      	<hr>
       </ion-col>
       
-    </ion-row>
-    
-	
+    </ion-row> -->
+
+    <ion-card *ngFor="let data of NewsList">
+      <ion-card-title>
+          <b><p [innerHtml]="data.NewsTitle">
+          </p>
+        </b>
+      </ion-card-title>
+      <img src="{{webServerHost + '/' + data.NewsPicture}}"/>
+      <ion-card-content>
+        
+        <p [innerHtml]="data.NewsContent.substring(0,200) + '..'">
+        </p>
+        
+      </ion-card-content>
+      <span style="text-align: right; color:#999;"><ion-icon name="md-calendar"></ion-icon> {{convertDateToFullThaiDateIgnoreTime(data.NewsDateTime)}}</span>
+        <ion-badge item-end><ion-icon name="eye"></ion-icon> {{data.VisitCount==''?0:data.VisitCount}}</ion-badge>
+        <ion-icon name="md-document" (tap)="viewPDF()"></ion-icon>
+        <br><br>
+    </ion-card>
 </div>

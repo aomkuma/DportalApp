@@ -21,11 +21,31 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.0.9</string>
+    <string>0.1.1</string>
     <key>CFBundleSignature</key>
     <string>????</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>th.go.dpo.dportal</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>th.go.dpo.dportal</string>
+        </array>
+      </dict>
+    </array>
     <key>CFBundleVersion</key>
-    <string>0.0.9</string>
+    <string>0.1.1</string>
+    <key>Google Maps API Key</key>
+    <string>AIzaSyCIQ0NJYS09Gp3lJdpR4gsmS9QQ5xPs_fU</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>googlechromes</string>
+      <string>comgooglemaps</string>
+    </array>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>
@@ -42,21 +62,27 @@
           <key>NSExceptionAllowsInsecureHTTPLoads</key>
           <true/>
         </dict>
-        <key>192.168.43.78</key>
-        <dict>
-          <key>NSExceptionAllowsInsecureHTTPLoads</key>
-          <true/>
-        </dict>
       </dict>
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app wants to get your location always, even this app runs in background.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app wants to get your location while this app runs only.</string>
+    <key>NSMainNibFile</key>
+    <string/>
     <key>NSMainNibFile~ipad</key>
     <string/>
+    <key>UIBackgroundModes</key>
+    <array>
+      <string>remote-notification</string>
+      <string>audio</string>
+    </array>
     <key>UILaunchStoryboardName</key>
     <string>CDVLaunchScreen</string>
     <key>UIRequiresFullScreen</key>
-    <true/>
+    <false/>
     <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>

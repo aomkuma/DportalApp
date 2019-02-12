@@ -10,10 +10,19 @@
     "cordova-plugin-advanced-http": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
     },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
     "cordova-plugin-browsertab": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
     },
     "cordova-plugin-device": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-googlemaps": {
+      "API_KEY_FOR_IOS": "AIzaSyCIQ0NJYS09Gp3lJdpR4gsmS9QQ5xPs_fU",
+      "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
+      "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background.",
       "PACKAGE_NAME": "th.go.dpo.dportal"
     },
     "cordova-plugin-inappbrowser": {
@@ -37,7 +46,25 @@
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
     },
-    "cordova-plugin-badge": {
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "phonegap-plugin-push": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-datepicker": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-appminimize": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-document-viewer": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-background-mode": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
     }
   },

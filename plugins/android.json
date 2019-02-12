@@ -40,6 +40,21 @@
     },
     "mx.ferreyra.callnumber": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-datepicker": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-appminimize": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-document-viewer": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "th.go.dpo.dportal"
     }
   },
   "dependent_plugins": {

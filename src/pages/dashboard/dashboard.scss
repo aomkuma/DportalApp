@@ -1,0 +1,24 @@
+page-dashboard {
+	.scroll-zoom-wrapper {
+        white-space: nowrap;
+    }
+
+    ion-card {
+        
+        display: inline-block;
+
+        .link-card{
+            width: 60px;
+            text-align:center;
+        }
+    }
+
+    ion-scroll {
+        
+        height: auto;
+
+        .scroll-content {
+        padding: 0px !important;
+        }    
+    }
+}

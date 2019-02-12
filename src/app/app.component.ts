@@ -30,8 +30,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'ข่าวประชาสัมพันธ์', url: 'news' },
-      { title: 'ลิ้งค์ที่เกี่ยวข้อง', url: 'link' },
+      // { title: 'ข่าวประชาสัมพันธ์', url: 'news' },
+      // { title: 'ลิ้งค์ที่เกี่ยวข้อง', url: 'link' },
       { title: 'สมุดโทรศัพท์ภายใน', url: 'telephonebook_internal' },
       { title: 'สมุดโทรศัพท์ภายนอก', url: 'telephonebook_external' },
       { title: 'MIS', url: 'MIS' },

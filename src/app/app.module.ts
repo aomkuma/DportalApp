@@ -5,11 +5,13 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { NewsPage } from '../pages/news/news';
+import { NewsDetailPage } from '../pages/news-detail/news-detail';
 import { LinkPage } from '../pages/link/link';
 import { ExPhoneBookPage } from '../pages/ex-phone-book/ex-phone-book';
 import { InPhoneBookPage } from '../pages/in-phone-book/in-phone-book';
 import { RepairPage } from '../pages/repair/repair';
-import { CarPage } from '../pages/car/car';
+import { DashboardPage } from '../pages/dashboard/dashboard';
+import { RoomReservePage } from '../pages/room-reserve/room-reserve';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { ListPage } from '../pages/list/list';
 
@@ -21,6 +23,12 @@ import { IonicStorageModule } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Badge } from '@ionic-native/badge';
 import { CallNumber } from '@ionic-native/call-number';
+// import { Geolocation } from '@ionic-native/geolocation';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { DatePicker } from '@ionic-native/date-picker';
+import { AppMinimize } from '@ionic-native/app-minimize';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 
 @NgModule({
   declarations: [
@@ -31,8 +39,11 @@ import { CallNumber } from '@ionic-native/call-number';
     ExPhoneBookPage,
     InPhoneBookPage,
     RepairPage,
-    CarPage,
+    // CarPage,
     UserProfilePage,
+    RoomReservePage,
+    DashboardPage,
+    NewsDetailPage,
     ListPage
   ],
   imports: [
@@ -49,8 +60,11 @@ import { CallNumber } from '@ionic-native/call-number';
     ExPhoneBookPage,
     InPhoneBookPage,
     RepairPage,
-    CarPage,
+    // CarPage,
     UserProfilePage,
+    RoomReservePage,
+    DashboardPage,
+    NewsDetailPage,
     ListPage
   ],
   providers: [
@@ -61,6 +75,12 @@ import { CallNumber } from '@ionic-native/call-number';
     ,InAppBrowser
     ,Badge
     ,CallNumber
+    // ,Geolocation
+    ,Push
+    ,DatePicker
+    ,AppMinimize
+    ,BackgroundMode
+    ,DocumentViewer
   ]
 })
 export class AppModule {}
