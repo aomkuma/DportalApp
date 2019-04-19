@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EEAC66C49875C8D59EA00DDC3FFD3198"
+               BlueprintIdentifier = "6B23E8C64EA98A2BA0C1CA0492881CBD"
                BlueprintName = "Pods-Dportal"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-Dportal.a">

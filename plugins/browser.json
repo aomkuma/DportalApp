@@ -46,9 +46,6 @@
     "mx.ferreyra.callnumber": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
     },
-    "phonegap-plugin-push": {
-      "PACKAGE_NAME": "th.go.dpo.dportal"
-    },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "th.go.dpo.dportal"
     },

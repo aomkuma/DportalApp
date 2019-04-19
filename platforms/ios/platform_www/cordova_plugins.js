@@ -530,14 +530,6 @@ module.exports = [
     ]
   },
   {
-    "id": "phonegap-plugin-push.PushNotification",
-    "file": "plugins/phonegap-plugin-push/www/push.js",
-    "pluginId": "phonegap-plugin-push",
-    "clobbers": [
-      "PushNotification"
-    ]
-  },
-  {
     "id": "cordova-plugin-geolocation.Coordinates",
     "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
     "pluginId": "cordova-plugin-geolocation",
@@ -622,7 +614,6 @@ module.exports.metadata =
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.5.2",
   "mx.ferreyra.callnumber": "0.0.2",
-  "phonegap-plugin-push": "2.2.3",
   "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-datepicker": "0.9.3",
   "cordova-plugin-appminimize": "1.0.1",

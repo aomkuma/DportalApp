@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="th.go.dpo.dportal" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="th.go.dpo.dportal.app" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Dportal</name>
     <description>Internal Application For Dairy Farming's Staff</description>
     <author email="korapotu@gmail.com" href="https://www.facebook.com/Aom.Nubs">korapotu@gmail.com</author>
@@ -87,7 +87,6 @@
     <allow-navigation href="*" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="cordova-plugin-badge" spec="^0.8.8" />
-    <plugin name="phonegap-plugin-push" spec="^2.2.3" />
     <plugin name="cordova-plugin-datepicker" spec="0.9.3" />
     <plugin name="cordova-plugin-appminimize" spec="1.0.1" />
     <plugin name="cordova-plugin-document-viewer" spec="0.9.10" />

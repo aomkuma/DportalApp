@@ -24,7 +24,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Badge } from '@ionic-native/badge';
 import { CallNumber } from '@ionic-native/call-number';
 // import { Geolocation } from '@ionic-native/geolocation';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { DatePicker } from '@ionic-native/date-picker';
 import { AppMinimize } from '@ionic-native/app-minimize';
 import { BackgroundMode } from '@ionic-native/background-mode';
@@ -76,7 +75,6 @@ import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-vi
     ,Badge
     ,CallNumber
     // ,Geolocation
-    ,Push
     ,DatePicker
     ,AppMinimize
     ,BackgroundMode

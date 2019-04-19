@@ -648,22 +648,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/phonegap-plugin-push/www/push.js",
-        "id": "phonegap-plugin-push.PushNotification",
-        "pluginId": "phonegap-plugin-push",
-        "clobbers": [
-            "PushNotification"
-        ]
-    },
-    {
-        "file": "plugins/phonegap-plugin-push/www/browser/push.js",
-        "id": "phonegap-plugin-push.BrowserPush",
-        "pluginId": "phonegap-plugin-push",
-        "clobbers": [
-            "PushNotification"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-appminimize/www/AppMinimize.js",
         "id": "cordova-plugin-appminimize.AppMinimize",
         "pluginId": "cordova-plugin-appminimize",
@@ -714,7 +698,6 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.3",
     "cordova-sqlite-storage": "2.5.2",
     "mx.ferreyra.callnumber": "0.0.2",
-    "phonegap-plugin-push": "2.2.3",
     "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-datepicker": "0.9.3",
     "cordova-plugin-appminimize": "1.0.1",

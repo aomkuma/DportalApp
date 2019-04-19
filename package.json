@@ -61,7 +61,6 @@
     "geolocation": "^0.2.0",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "phonegap-plugin-push": "^2.2.3",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
@@ -85,7 +84,6 @@
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-badge": {},
       "cordova-plugin-geolocation": {},
-      "phonegap-plugin-push": {},
       "cordova-plugin-datepicker": {},
       "cordova-plugin-appminimize": {},
       "cordova-plugin-document-viewer": {},

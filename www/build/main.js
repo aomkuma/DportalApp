@@ -22,43 +22,43 @@ webpackEmptyAsyncContext.id = 114;
 
 var map = {
 	"../pages/car/car.module": [
-		291,
+		298,
 		0
 	],
 	"../pages/dashboard/dashboard.module": [
-		290,
+		289,
 		9
 	],
 	"../pages/ex-phone-book/ex-phone-book.module": [
-		294,
+		290,
 		8
 	],
 	"../pages/in-phone-book/in-phone-book.module": [
-		292,
+		291,
 		7
 	],
 	"../pages/link/link.module": [
-		293,
+		292,
 		6
 	],
 	"../pages/news-detail/news-detail.module": [
-		295,
+		293,
 		5
 	],
 	"../pages/news/news.module": [
-		297,
+		294,
 		4
 	],
 	"../pages/repair/repair.module": [
-		296,
+		295,
 		3
 	],
 	"../pages/room-reserve/room-reserve.module": [
-		298,
+		296,
 		2
 	],
 	"../pages/user-profile/user-profile.module": [
-		299,
+		297,
 		1
 	]
 };
@@ -91,9 +91,8 @@ module.exports = webpackAsyncContext;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_badge__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_push__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_app_minimize__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_background_mode__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_app_minimize__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_background_mode__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -114,11 +113,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // import { Geolocation } from '@ionic-native/geolocation';
 
 
-
 var HomePage = /** @class */ (function () {
     function HomePage(navCtrl, platform, navParams, http, storage, iab, sanitizer, badge
         // , private geolocation: Geolocation
-        , push, statusBar, appMinimize, backgroundMode) {
+        , statusBar, appMinimize, backgroundMode) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.platform = platform;
@@ -128,7 +126,6 @@ var HomePage = /** @class */ (function () {
         this.iab = iab;
         this.sanitizer = sanitizer;
         this.badge = badge;
-        this.push = push;
         this.statusBar = statusBar;
         this.appMinimize = appMinimize;
         this.backgroundMode = backgroundMode;
@@ -184,38 +181,6 @@ var HomePage = /** @class */ (function () {
             }
         });
         this.platform.ready().then(function () {
-            _this.push.hasPermission()
-                .then(function (res) {
-                if (res.isEnabled) {
-                    console.log('We have permission to send push notifications');
-                }
-                else {
-                    console.log('We do not have permission to send push notifications');
-                }
-            });
-            // Create a channel (Android O and above). You'll need to provide the id, description and importance properties.
-            _this.push.createChannel({
-                id: "aomtestchannel1",
-                description: "My first test channel",
-                // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
-                importance: 3
-            }).then(function () { return console.log('Channel created'); });
-            // Delete a channel (Android O and above)
-            _this.push.deleteChannel('testchannel1').then(function () { return console.log('Channel deleted'); });
-            // Return a list of currently configured channels
-            _this.push.listChannels().then(function (channels) { return console.log('List of channels', channels); });
-            // to initialize push notifications
-            var options = {
-                ios: {
-                    alert: 'true',
-                    badge: true,
-                    sound: 'false'
-                },
-            };
-            var pushObject = _this.push.init(options);
-            pushObject.on('notification').subscribe(function (notification) { return console.log('Received a notification', notification); });
-            pushObject.on('registration').subscribe(function (registration) { return console.log('Device registered', registration); });
-            pushObject.on('error').subscribe(function (error) { return console.error('Error with Push plugin : ', error.message); });
             _this.platform.registerBackButtonAction(function () {
                 _this.appMinimize.minimize();
             });
@@ -525,10 +490,9 @@ var HomePage = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_7__ionic_native_badge__["a" /* Badge */]
             // , private geolocation: Geolocation
             ,
-            __WEBPACK_IMPORTED_MODULE_8__ionic_native_push__["a" /* Push */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
-            __WEBPACK_IMPORTED_MODULE_9__ionic_native_app_minimize__["a" /* AppMinimize */],
-            __WEBPACK_IMPORTED_MODULE_10__ionic_native_background_mode__["a" /* BackgroundMode */]])
+            __WEBPACK_IMPORTED_MODULE_8__ionic_native_app_minimize__["a" /* AppMinimize */],
+            __WEBPACK_IMPORTED_MODULE_9__ionic_native_background_mode__["a" /* BackgroundMode */]])
     ], HomePage);
     return HomePage;
 }());
@@ -537,7 +501,7 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 204:
+/***/ 203:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -663,7 +627,94 @@ var DashboardPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 206:
+/***/ 204:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExPhoneBookPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(83);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+/**
+ * Generated class for the ExPhoneBookPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ExPhoneBookPage = /** @class */ (function () {
+    function ExPhoneBookPage(navCtrl, navParams, http, storage, callNumber) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.http = http;
+        this.storage = storage;
+        this.callNumber = callNumber;
+        this.webServerHost = 'https://dportal.dpo.go.th';
+        this.offset = 0;
+        this.LoginObj = {};
+        this.PhoneList = [];
+        storage.get('LoginObj').then(function (val) {
+            if (val != null && val != '') {
+                _this.LoginObj = JSON.parse(val);
+                _this.getPhone();
+            }
+        });
+    }
+    ExPhoneBookPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ExPhoneBookPage');
+    };
+    ExPhoneBookPage.prototype.makeCall = function (phone_number) {
+        if (phone_number != '') {
+            this.callNumber.callNumber(phone_number, true);
+        }
+    };
+    ExPhoneBookPage.prototype.getPhone = function () {
+        var _this = this;
+        var url = this.webServerHost + '/dpo/public/getExternalPhoneBookList/';
+        this.http.post(url, { 'offset': 0, 'condition': { 'LoginUserID': this.LoginObj.UserID } }, {})
+            .then(function (data) {
+            var res = JSON.parse(data.data);
+            _this.PhoneList = res.data.DATA.DataList;
+            console.log(JSON.stringify(_this.PhoneList));
+        })
+            .catch(function (error) {
+            console.log(error.status);
+            console.log(error.error); // error message as string
+            console.log(error.headers);
+        });
+    };
+    ExPhoneBookPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-ex-phone-book',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/ex-phone-book/ex-phone-book.html"*/'<div>\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>สมุดโทรศัพท์ภายนอก</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-list>\n      <ion-item *ngFor="let data of PhoneList">\n        <ion-thumbnail item-start>\n          <ion-icon name="md-person"></ion-icon>\n        </ion-thumbnail>\n        <h2>{{data.FirstName}} {{data.LastName}}</h2>\n        <p><span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span></p>\n        \n      </ion-item>\n    </ion-list>\n    <!--<ion-row responsive-sm responsive-xs  *ngFor="let data of PhoneList">\n      <ion-col style="text-align: left;">\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n        <br><br>\n        <span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span>\n    	<br>\n    	<hr>\n      </ion-col>\n    </ion-row>\n    -->\n	\n</div>\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/ex-phone-book/ex-phone-book.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */]])
+    ], ExPhoneBookPage);
+    return ExPhoneBookPage;
+}());
+
+//# sourceMappingURL=ex-phone-book.js.map
+
+/***/ }),
+
+/***/ 205:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -750,7 +801,7 @@ var InPhoneBookPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 207:
+/***/ 206:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -839,94 +890,7 @@ var LinkPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 208:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExPhoneBookPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(83);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-/**
- * Generated class for the ExPhoneBookPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ExPhoneBookPage = /** @class */ (function () {
-    function ExPhoneBookPage(navCtrl, navParams, http, storage, callNumber) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.http = http;
-        this.storage = storage;
-        this.callNumber = callNumber;
-        this.webServerHost = 'https://dportal.dpo.go.th';
-        this.offset = 0;
-        this.LoginObj = {};
-        this.PhoneList = [];
-        storage.get('LoginObj').then(function (val) {
-            if (val != null && val != '') {
-                _this.LoginObj = JSON.parse(val);
-                _this.getPhone();
-            }
-        });
-    }
-    ExPhoneBookPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ExPhoneBookPage');
-    };
-    ExPhoneBookPage.prototype.makeCall = function (phone_number) {
-        if (phone_number != '') {
-            this.callNumber.callNumber(phone_number, true);
-        }
-    };
-    ExPhoneBookPage.prototype.getPhone = function () {
-        var _this = this;
-        var url = this.webServerHost + '/dpo/public/getExternalPhoneBookList/';
-        this.http.post(url, { 'offset': 0, 'condition': { 'LoginUserID': this.LoginObj.UserID } }, {})
-            .then(function (data) {
-            var res = JSON.parse(data.data);
-            _this.PhoneList = res.data.DATA.DataList;
-            console.log(JSON.stringify(_this.PhoneList));
-        })
-            .catch(function (error) {
-            console.log(error.status);
-            console.log(error.error); // error message as string
-            console.log(error.headers);
-        });
-    };
-    ExPhoneBookPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ex-phone-book',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/ex-phone-book/ex-phone-book.html"*/'<div>\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>สมุดโทรศัพท์ภายนอก</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-list>\n      <ion-item *ngFor="let data of PhoneList">\n        <ion-thumbnail item-start>\n          <ion-icon name="md-person"></ion-icon>\n        </ion-thumbnail>\n        <h2>{{data.FirstName}} {{data.LastName}}</h2>\n        <p><span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span></p>\n        \n      </ion-item>\n    </ion-list>\n    <!--<ion-row responsive-sm responsive-xs  *ngFor="let data of PhoneList">\n      <ion-col style="text-align: left;">\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n        <br><br>\n        <span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span>\n    	<br>\n    	<hr>\n      </ion-col>\n    </ion-row>\n    -->\n	\n</div>\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/ex-phone-book/ex-phone-book.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_http__["a" /* HTTP */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */]])
-    ], ExPhoneBookPage);
-    return ExPhoneBookPage;
-}());
-
-//# sourceMappingURL=ex-phone-book.js.map
-
-/***/ }),
-
-/***/ 209:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -971,52 +935,7 @@ var NewsDetailPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 210:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RepairPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Generated class for the RepairPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var RepairPage = /** @class */ (function () {
-    function RepairPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    RepairPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad RepairPage');
-    };
-    RepairPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-repair',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/repair/repair.html"*/'<div>\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>แจ้งซ่อม</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >\n      <ion-col style="text-align: left;">\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n        <br><br>\n        <span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span>\n    	<br>\n    	<hr>\n      </ion-col>\n    </ion-row>\n    \n	\n</div>\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/repair/repair.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
-    ], RepairPage);
-    return RepairPage;
-}());
-
-//# sourceMappingURL=repair.js.map
-
-/***/ }),
-
-/***/ 211:
+/***/ 208:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1155,7 +1074,52 @@ var NewsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 212:
+/***/ 209:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RepairPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the RepairPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var RepairPage = /** @class */ (function () {
+    function RepairPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    RepairPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad RepairPage');
+    };
+    RepairPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-repair',template:/*ion-inline-start:"/Applications/ionic_apps/DportalApp/src/pages/repair/repair.html"*/'<div>\n	<ion-row responsive-sm responsive-xs>\n      <ion-col style="text-align: center;">\n    	<h4>แจ้งซ่อม</h4>\n    	<br>\n      </ion-col>\n    </ion-row>\n    <ion-row responsive-sm responsive-xs *ngFor="let data of PhoneList" >\n      <ion-col style="text-align: left;">\n      	<ion-icon name="md-person"></ion-icon> {{data.FirstName}} {{data.LastName}}\n        <br><br>\n        <span (tap)="makeCall(data.Tel)"><ion-icon name="md-phone-portrait"></ion-icon> {{data.Tel}}</span>\n    	<br>\n    	<hr>\n      </ion-col>\n    </ion-row>\n    \n	\n</div>\n\n'/*ion-inline-end:"/Applications/ionic_apps/DportalApp/src/pages/repair/repair.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    ], RepairPage);
+    return RepairPage;
+}());
+
+//# sourceMappingURL=repair.js.map
+
+/***/ }),
+
+/***/ 210:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1200,7 +1164,7 @@ var RoomReservePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 213:
+/***/ 211:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1316,13 +1280,13 @@ var UserProfilePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 214:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(215);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(236);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1330,7 +1294,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 237:
+/***/ 236:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1338,18 +1302,18 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_news_news__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_news_detail_news_detail__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_link_link__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_ex_phone_book_ex_phone_book__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_in_phone_book_in_phone_book__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_repair_repair__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_dashboard_dashboard__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_room_reserve_room_reserve__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_user_profile_user_profile__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_list_list__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_news_news__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_news_detail_news_detail__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_link_link__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_ex_phone_book_ex_phone_book__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_in_phone_book_in_phone_book__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_repair_repair__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_dashboard_dashboard__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_room_reserve_room_reserve__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_user_profile_user_profile__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_list_list__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_status_bar__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_splash_screen__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_http__ = __webpack_require__(27);
@@ -1357,11 +1321,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_in_app_browser__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_badge__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_call_number__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_push__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_date_picker__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_app_minimize__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_background_mode__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_document_viewer__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_date_picker__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_app_minimize__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_background_mode__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_document_viewer__ = __webpack_require__(158);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1395,7 +1358,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1421,15 +1383,15 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/dashboard/dashboard.module#DashboardPageModule', name: 'DashboardPage', segment: 'dashboard', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/car/car.module#CarPageModule', name: 'CarPage', segment: 'car', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ex-phone-book/ex-phone-book.module#ExPhoneBookPageModule', name: 'ExPhoneBookPage', segment: 'ex-phone-book', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/in-phone-book/in-phone-book.module#InPhoneBookPageModule', name: 'InPhoneBookPage', segment: 'in-phone-book', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/link/link.module#LinkPageModule', name: 'LinkPage', segment: 'link', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ex-phone-book/ex-phone-book.module#ExPhoneBookPageModule', name: 'ExPhoneBookPage', segment: 'ex-phone-book', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/news-detail/news-detail.module#NewsDetailPageModule', name: 'NewsDetailPage', segment: 'news-detail', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/repair/repair.module#RepairPageModule', name: 'RepairPage', segment: 'repair', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/news/news.module#NewsPageModule', name: 'NewsPage', segment: 'news', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/repair/repair.module#RepairPageModule', name: 'RepairPage', segment: 'repair', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/room-reserve/room-reserve.module#RoomReservePageModule', name: 'RoomReservePage', segment: 'room-reserve', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/user-profile/user-profile.module#UserProfilePageModule', name: 'UserProfilePage', segment: 'user-profile', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/user-profile/user-profile.module#UserProfilePageModule', name: 'UserProfilePage', segment: 'user-profile', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/car/car.module#CarPageModule', name: 'CarPage', segment: 'car', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_18__ionic_storage__["a" /* IonicStorageModule */].forRoot()
@@ -1460,11 +1422,10 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_21__ionic_native_call_number__["a" /* CallNumber */]
                 // ,Geolocation
                 ,
-                __WEBPACK_IMPORTED_MODULE_22__ionic_native_push__["a" /* Push */],
-                __WEBPACK_IMPORTED_MODULE_23__ionic_native_date_picker__["a" /* DatePicker */],
-                __WEBPACK_IMPORTED_MODULE_24__ionic_native_app_minimize__["a" /* AppMinimize */],
-                __WEBPACK_IMPORTED_MODULE_25__ionic_native_background_mode__["a" /* BackgroundMode */],
-                __WEBPACK_IMPORTED_MODULE_26__ionic_native_document_viewer__["a" /* DocumentViewer */]
+                __WEBPACK_IMPORTED_MODULE_22__ionic_native_date_picker__["a" /* DatePicker */],
+                __WEBPACK_IMPORTED_MODULE_23__ionic_native_app_minimize__["a" /* AppMinimize */],
+                __WEBPACK_IMPORTED_MODULE_24__ionic_native_background_mode__["a" /* BackgroundMode */],
+                __WEBPACK_IMPORTED_MODULE_25__ionic_native_document_viewer__["a" /* DocumentViewer */]
             ]
         })
     ], AppModule);
@@ -1475,7 +1436,7 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 288:
+/***/ 287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1578,7 +1539,7 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 289:
+/***/ 288:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1635,5 +1596,5 @@ var ListPage = /** @class */ (function () {
 
 /***/ })
 
-},[214]);
+},[213]);
 //# sourceMappingURL=main.js.map
